@@ -2,8 +2,18 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+jar {
+    manifest {
+        attributes "Main-Class": "Main"
+    }
+    archiveBaseName = "FantasyDB"
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -12,6 +22,10 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    implementation group: 'org.json', name: 'json', version: '20220924'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.36.0.3'
+
 }
 
 test {

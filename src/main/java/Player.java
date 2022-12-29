@@ -10,6 +10,8 @@ public class Player {
     int recYards;
     int receptions;
 
+    String team;
+
     public Player(){
 
     }
@@ -18,6 +20,13 @@ public class Player {
 
     }
 
+    public void setTeam(String team){
+        this.team= team;
+
+    }
+    public String getTeam(){
+        return this.team;
+    }
     public String getName() {
         return name;
     }
