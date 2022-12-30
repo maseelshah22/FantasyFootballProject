@@ -1,23 +1,20 @@
 public class Player {
 
     String name;
-    int number;
+
     String position; // QB, WR, TE, RB --> abbreviations only
-    int passingYards;
-    int passingTouchdowns;
-    int rushingYards;
-    int rushingTouchdowns;
-    int recYards;
-    int receptions;
-    int totalPoints;
-    int passingPoints;
-    int rushingPoints;
-    int pointsPerGame;
-    int passAttempts;
-    int interceptions;
 
-
-    String team;
+    double completions;
+    double attempts;
+    double completionPercent;
+    double passingYards;
+    double passYardsPerAttempt;
+    double touchdownPasses;
+    double interceptions;
+    double sacks;
+    double rushAttempts;
+    double rushYards;
+    double rushingTouchdowns;
 
     public Player(){
 
@@ -25,30 +22,13 @@ public class Player {
     public Player(String name){
         this.name=name;
     }
-    public Player(String name, String number, String position){
 
-    }
-
-    public void setTeam(String team){
-        this.team= team;
-    }
-    public String getTeam(){
-        return this.team;
-    }
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public String getPosition() {
@@ -59,98 +39,93 @@ public class Player {
         this.position = position;
     }
 
+    public double getCompletions() {
+        return completions;
+    }
 
-    public int getPassingYards() {
+    public void setCompletions(double completions) {
+        this.completions = completions;
+    }
+
+    public double getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(double attempts) {
+        this.attempts = attempts;
+    }
+
+    public double getCompletionPercent() {
+        return completionPercent;
+    }
+
+    public void setCompletionPercent(double completionPercent) {
+        this.completionPercent = completionPercent;
+    }
+
+    public double getPassingYards() {
         return passingYards;
     }
 
-    public void setPassingYards(int passingYards) {
+    public void setPassingYards(double passingYards) {
         this.passingYards = passingYards;
     }
 
-    public int getPassingTouchdowns() {
-        return passingTouchdowns;
+    public double getPassYardsPerAttempt() {
+        return passYardsPerAttempt;
     }
 
-    public void setPassingTouchdowns(int passingTouchdowns) {
-        this.passingTouchdowns = passingTouchdowns;
+    public void setPassYardsPerAttempt(double passYardsPerAttempt) {
+        this.passYardsPerAttempt = passYardsPerAttempt;
     }
 
-    public int getRushingYards() {
-        return rushingYards;
+    public double getTouchdownPasses() {
+        return touchdownPasses;
     }
 
-    public void setRushingYards(int rushingYards) {
-        this.rushingYards = rushingYards;
+    public void setTouchdownPasses(double touchdownPasses) {
+        this.touchdownPasses = touchdownPasses;
     }
 
-    public int getRushingTouchdowns() {
+    public double getdoubleerceptions() {
+        return this.interceptions;
+    }
+
+    public void setInterceptions(double ints) {
+        this.interceptions = ints;
+    }
+
+    public double getSacks() {
+        return sacks;
+    }
+
+    public void setSacks(double sacks) {
+        this.sacks = sacks;
+    }
+
+    public double getRushAttempts() {
+        return rushAttempts;
+    }
+
+    public void setRushAttempts(double rushAttempts) {
+        this.rushAttempts = rushAttempts;
+    }
+
+    public double getRushYards() {
+        return rushYards;
+    }
+
+    public void setRushYards(double rushYards) {
+        this.rushYards = rushYards;
+    }
+
+    public double getRushingTouchdowns() {
         return rushingTouchdowns;
     }
 
-    public void setRushingTouchdowns(int rushingTouchdowns) {
+    public void setRushingTouchdowns(double rushingTouchdowns) {
         this.rushingTouchdowns = rushingTouchdowns;
     }
 
-    public int getRecYards() {
-        return recYards;
-    }
 
-    public void setRecYards(int recYards) {
-        this.recYards = recYards;
-    }
-    public int getReceptions() {
-        return receptions;
-    }
-    public void setReceptions(int receptions) {
-        this.receptions = receptions;
-    }
-
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
-    public int getPassingPoints() {
-        return passingPoints;
-    }
-
-    public void setPassingPoints(int passingPoints) {
-        this.passingPoints = passingPoints;
-    }
-
-    public int getRushingPoints() {
-        return rushingPoints;
-    }
-
-    public void setRushingPoints(int rushingPoints) {
-        this.rushingPoints = rushingPoints;
-    }
-
-    public int getPointsPerGame() {
-        return pointsPerGame;
-    }
-
-    public void setPointsPerGame(int pointsPerGame) {
-        this.pointsPerGame = pointsPerGame;
-    }
-
-    public int getPassAttempts() {
-        return passAttempts;
-    }
-
-    public void setPassAttempts(int passAttempts) {
-        this.passAttempts = passAttempts;
-    }
-
-    public int getInterceptions() {
-        return interceptions;
-    }
-
-    public void setInterceptions(int interceptions) {
-        this.interceptions = interceptions;
-    }
 }
