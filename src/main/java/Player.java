@@ -9,20 +9,28 @@ public class Player {
     int rushingTouchdowns;
     int recYards;
     int receptions;
+    int totalPoints;
+    int passingPoints;
+    int rushingPoints;
+    int pointsPerGame;
+    int passAttempts;
+    int interceptions;
+
 
     String team;
 
     public Player(){
 
     }
-
+    public Player(String name){
+        this.name=name;
+    }
     public Player(String name, String number, String position){
 
     }
 
     public void setTeam(String team){
         this.team= team;
-
     }
     public String getTeam(){
         return this.team;
@@ -96,5 +104,53 @@ public class Player {
     }
     public void setReceptions(int receptions) {
         this.receptions = receptions;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    public int getPassingPoints() {
+        return passingPoints;
+    }
+
+    public void setPassingPoints(int passingPoints) {
+        this.passingPoints = passingPoints;
+    }
+
+    public int getRushingPoints() {
+        return rushingPoints;
+    }
+
+    public void setRushingPoints(int rushingPoints) {
+        this.rushingPoints = rushingPoints;
+    }
+
+    public int getPointsPerGame() {
+        return pointsPerGame;
+    }
+
+    public void setPointsPerGame(int pointsPerGame) {
+        this.pointsPerGame = pointsPerGame;
+    }
+
+    public int getPassAttempts() {
+        return passAttempts;
+    }
+
+    public void setPassAttempts(int passAttempts) {
+        this.passAttempts = passAttempts;
+    }
+
+    public int getInterceptions() {
+        return interceptions;
+    }
+
+    public void setInterceptions(int interceptions) {
+        this.interceptions = interceptions;
     }
 }
