@@ -6,10 +6,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ScrapeStats {
 
-    public static ArrayList<Player> qbList= new ArrayList<>();
     public static Elements getSiteBody(String url) throws IOException {
 
         String urlQBStats = url;
@@ -19,9 +19,10 @@ public class ScrapeStats {
         return body;
     }
 
-    public static void createQB(Elements body){
+    public static ArrayList<Player> createQBList(Elements body){
     //create QB player and will add him to list
         int playerIteration=0;
+        ArrayList<Player> qbList= new ArrayList<>();
         for (Element e : body.select("tr")) {
 
             String playerName = e.select("td.player-label a").text();
@@ -48,11 +49,12 @@ public class ScrapeStats {
         }
 
         for (Player p: qbList){
-
-            System.out.print(p.getName()+ " ");
-            System.out.println(p.getTouchdownPasses());
-
-        }
+//
+           System.out.println(p.getName()+ " ");
+//            p.printQBAttributes();
+//
+       }
+        return qbList;
     }
 
 
@@ -77,15 +79,36 @@ public class ScrapeStats {
         return cleanData;
     }
 
+    public static String urlGetter(){
+
+        String url;
+
+        Scanner s= new Scanner(System.in);
+        System.out.println("For which season do you want player data?");
+        String seasonYear = s.next();
+
+        System.out.println("For which position do you want player data?");
+        System.out.println("Type qb, rb, wr, or te");
+
+        String position = s.next();
+
+        url= "https://www.fantasypros.com/nfl/stats/"+position+ ".php?year="+seasonYear;
+
+        return url;
+
+
+
+    }
+
+
+
     public static void main(String[] args) throws IOException {
 
-       Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/qb.php");
-       createQB(b);
-        int i=1;
-//        for(Player p: playerList){
-//            System.out.println(i+" player is: "+ p.getName());
-//            i++;
-//        }
+       String url= urlGetter();
+       Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
+       ArrayList<Player> quarterbacks=createQBList(b);
+
+
 
 
         //movie parser

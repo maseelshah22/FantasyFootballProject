@@ -87,7 +87,7 @@ public class Player {
         this.touchdownPasses = touchdownPasses;
     }
 
-    public double getdoubleerceptions() {
+    public double getInterceptions() {
         return this.interceptions;
     }
 
@@ -125,6 +125,23 @@ public class Player {
 
     public void setRushingTouchdowns(double rushingTouchdowns) {
         this.rushingTouchdowns = rushingTouchdowns;
+    }
+
+    public void printQBAttributes(){
+
+        System.out.println("Completions: "+ getCompletions());
+        System.out.println("Pass Attempts: "+ getAttempts());
+        System.out.println("Completions Percent: "+ getCompletionPercent());
+        System.out.println("Passing Yards: "+ getPassingYards());
+        System.out.println("Passing Yards per Attempt: "+ getPassYardsPerAttempt());
+        System.out.println("Touchdown Passes: "+ getTouchdownPasses());
+        System.out.println("Interceptions: "+ getInterceptions());
+        System.out.println("Sacks: "+getSacks());
+        System.out.println("Rushing Attempts: "+getRushAttempts());
+        System.out.println("Rushing Yards: "+ getRushYards());
+        System.out.println("Rushing Touchdowns: "+ getRushingTouchdowns());
+
+
     }
 
 
