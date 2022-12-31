@@ -5,7 +5,7 @@ public class Player {
     String position; // QB, WR, TE, RB --> abbreviations only
 
     double completions;
-    double attempts;
+    double passAttempts;
     double completionPercent;
     double passingYards;
     double passYardsPerAttempt;
@@ -15,6 +15,17 @@ public class Player {
     double rushAttempts;
     double rushYards;
     double rushingTouchdowns;
+
+    double longestRush;
+
+    double rushYardsPerAttempt;
+    double twentyPlusRushes;
+
+    double receptions;
+    double targets;
+    double recYards;
+    double recYardsPerCatch;
+    double recTouchdowns;
 
     public Player(){
 
@@ -47,12 +58,12 @@ public class Player {
         this.completions = completions;
     }
 
-    public double getAttempts() {
-        return attempts;
+    public double getPassAttempts() {
+        return passAttempts;
     }
 
-    public void setAttempts(double attempts) {
-        this.attempts = attempts;
+    public void setPassAttempts(double passAttempts) {
+        this.passAttempts = passAttempts;
     }
 
     public double getCompletionPercent() {
@@ -127,19 +138,111 @@ public class Player {
         this.rushingTouchdowns = rushingTouchdowns;
     }
 
+    public double getRushYardsPerAttempt() {
+        return rushYardsPerAttempt;
+    }
+
+    public void setRushYardsPerAttempt(double rushYardsPerAttempt) {
+        this.rushYardsPerAttempt = rushYardsPerAttempt;
+    }
+
+    public double getLongestRush() {
+        return longestRush;
+    }
+
+    public void setLongestRush(double longestRush) {
+        this.longestRush = longestRush;
+    }
+
+    public double getTwentyPlusRushes() {
+        return twentyPlusRushes;
+    }
+
+    public void setTwentyPlusRushes(double twentyPlusRushes) {
+        this.twentyPlusRushes = twentyPlusRushes;
+    }
+
+    public double getReceptions() {
+        return receptions;
+    }
+
+    public void setReceptions(double receptions) {
+        this.receptions = receptions;
+    }
+
+    public double getTargets() {
+        return targets;
+    }
+
+    public void setTargets(double targets) {
+        this.targets = targets;
+    }
+
+    public double getRecYards() {
+        return recYards;
+    }
+
+    public void setRecYards(double recYards) {
+        this.recYards = recYards;
+    }
+
+    public double getRecYardsPerCatch() {
+        return recYardsPerCatch;
+    }
+
+    public void setRecYardsPerCatch(double recYardsPerCatch) {
+        this.recYardsPerCatch = recYardsPerCatch;
+    }
+
+    public double getRecTouchdowns() {
+        return recTouchdowns;
+    }
+
+    public void setRecTouchdowns(double recTouchdowns) {
+        this.recTouchdowns = recTouchdowns;
+    }
+
     public void printQBAttributes(){
 
-        System.out.println("Completions: "+ getCompletions());
-        System.out.println("Pass Attempts: "+ getAttempts());
-        System.out.println("Completions Percent: "+ getCompletionPercent());
-        System.out.println("Passing Yards: "+ getPassingYards());
-        System.out.println("Passing Yards per Attempt: "+ getPassYardsPerAttempt());
-        System.out.println("Touchdown Passes: "+ getTouchdownPasses());
-        System.out.println("Interceptions: "+ getInterceptions());
-        System.out.println("Sacks: "+getSacks());
-        System.out.println("Rushing Attempts: "+getRushAttempts());
-        System.out.println("Rushing Yards: "+ getRushYards());
-        System.out.println("Rushing Touchdowns: "+ getRushingTouchdowns());
+        System.out.println(getName());
+        System.out.print("Position: "+ getPosition()+" ");
+        System.out.print("Completions: "+ getCompletions()+" ");
+        System.out.print("Pass Attempts: "+ getPassAttempts()+" ");
+        System.out.print("Completions Percent: "+ getCompletionPercent()+" ");
+        System.out.print("Passing Yards: "+ getPassingYards()+" ");
+        System.out.print("Passing Yards per Attempt: "+ getPassYardsPerAttempt()+" ");
+        System.out.print("Touchdown Passes: "+ getTouchdownPasses()+" ");
+        System.out.print("Interceptions: "+ getInterceptions()+" ");
+        System.out.print("Sacks: "+getSacks()+" ");
+        System.out.print("Rushing Attempts: "+getRushAttempts()+" ");
+        System.out.print("Rushing Yards: "+ getRushYards()+" ");
+        System.out.println("Rushing Touchdowns: "+ getRushingTouchdowns()+" ");
+
+
+    }
+    public void printRunningBackAttributes(){
+
+        System.out.println(getName());
+        System.out.print("Position: "+ getPosition()+" ");
+        System.out.print("Rushing Attempts: "+ getRushAttempts()+" ");
+        System.out.print("Rushing Yards: "+ getRushYards()+" ");
+        System.out.print("Rushing Yards Per Attempts: "+ getRushYardsPerAttempt()+" ");
+        System.out.print("Longest Run: "+ getLongestRush()+" ");
+        System.out.print("Number of 20+ Yard Runs: "+ getTwentyPlusRushes()+" ");
+        System.out.print("Rushing Touchdowns: "+ getRushingTouchdowns()+" ");
+        System.out.print("Receptions: "+ getReceptions()+" ");
+        System.out.print("Receiving Targets: "+ getTargets()+" ");
+        System.out.print("Receiving Yards: "+ getRecYards()+" ");
+        System.out.print("Receiving Yards Per Catch: "+ getRecYardsPerCatch()+" ");
+        System.out.println("Receiving Touchdowns: "+ getRecTouchdowns()+" ");
+
+
+
+
+
+
+
+
 
 
     }

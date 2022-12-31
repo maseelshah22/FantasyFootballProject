@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ScrapeStats {
 
@@ -19,21 +18,21 @@ public class ScrapeStats {
         return body;
     }
 
-    public static ArrayList<Player> createQBList(Elements body){
-    //create QB player and will add him to list
-        int playerIteration=0;
-        ArrayList<Player> qbList= new ArrayList<>();
+    public static ArrayList<Player> createQBList(Elements body) {
+        //create QB player and will add him to list
+        int playerIteration = 0;
+        ArrayList<Player> qbList = new ArrayList<>();
         for (Element e : body.select("tr")) {
 
             String playerName = e.select("td.player-label a").text();
-            //System.out.println(playerName);
-            String readQBStats= e.select("td.center").text();
-            Double [] qbStats= extractQBData(readQBStats);
+            String readQBStats = e.select("td.center").text();
+            Double[] qbStats = extractQBData(readQBStats);
 
             qbList.add(new Player(playerName));
 
+            qbList.get(playerIteration).setPosition("QB");
             qbList.get(playerIteration).setCompletions(qbStats[0]);
-            qbList.get(playerIteration).setAttempts(qbStats[1]);
+            qbList.get(playerIteration).setPassAttempts(qbStats[1]);
             qbList.get(playerIteration).setCompletionPercent(qbStats[2]);
             qbList.get(playerIteration).setPassingYards(qbStats[3]);
             qbList.get(playerIteration).setPassYardsPerAttempt(qbStats[4]);
@@ -48,67 +47,137 @@ public class ScrapeStats {
 
         }
 
-        for (Player p: qbList){
-//
-           System.out.println(p.getName()+ " ");
-//            p.printQBAttributes();
-//
-       }
+        for (Player p : qbList) {
+
+           // System.out.println(p.getName() + " ");
+            p.printQBAttributes();
+
+        }
         return qbList;
     }
 
 
+    public static Double[] extractQBData(String dataLine) {
 
-    public static Double[] extractQBData(String dataLine){
+        String[] dataSep = dataLine.split(" ");
+        Double[] cleanData = new Double[11];
 
-        String [] dataSep= dataLine.split(" ");
-        Double [] cleanData= new Double[11];
-
-        for(int i=0;i<11;i++){
-            String tempNum=dataSep[i];
-            String newNum=tempNum;
-            if(tempNum.contains(",")){
-                newNum= tempNum.substring(0,tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',')+1);
+        for (int i = 0; i < 11; i++) {
+            String tempNum = dataSep[i];
+            String newNum = tempNum;
+            if (tempNum.contains(",")) {
+                newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
             }
-            cleanData[i]=Double.parseDouble(newNum);
+            cleanData[i] = Double.parseDouble(newNum);
             //System.out.print(cleanData[i]+" ");
         }
 
-      //  System.out.println("");
+        //  System.out.println("");
 
         return cleanData;
     }
 
-    public static String urlGetter(){
 
-        String url;
 
-        Scanner s= new Scanner(System.in);
-        System.out.println("For which season do you want player data?");
-        String seasonYear = s.next();
+    public static ArrayList<Player> createRunningBackList(Elements body){
+        int playerIteration = 0;
+        ArrayList<Player> rbList = new ArrayList<>();
 
-        System.out.println("For which position do you want player data?");
-        System.out.println("Type qb, rb, wr, or te");
+        for (Element e : body.select("tr")) {
 
-        String position = s.next();
+            String playerName = e.select("td.player-label a").text();
+            String readRBStats = e.select("td.center").text();
+            Double[] rbStats = extractRunningBackData(readRBStats);
 
-        url= "https://www.fantasypros.com/nfl/stats/"+position+ ".php?year="+seasonYear;
+            rbList.add(new Player(playerName));
+            rbList.get(playerIteration).setPosition("RB");
 
-        return url;
+            rbList.get(playerIteration).setRushAttempts(rbStats[0]);
+            rbList.get(playerIteration).setRushYards(rbStats[1]);
+            rbList.get(playerIteration).setRushYardsPerAttempt(rbStats[2]);
+            rbList.get(playerIteration).setLongestRush(rbStats[3]);
+            rbList.get(playerIteration).setTwentyPlusRushes(rbStats[4]);
+            rbList.get(playerIteration).setRushingTouchdowns(rbStats[5]);
+            rbList.get(playerIteration).setReceptions(rbStats[6]);
+            rbList.get(playerIteration).setTargets(rbStats[7]);
+            rbList.get(playerIteration).setRecYards(rbStats[8]);
+            rbList.get(playerIteration).setRecYardsPerCatch(rbStats[9]);
+            rbList.get(playerIteration).setRecTouchdowns(rbStats[10]);
 
+            playerIteration++;
+
+
+        }
+
+        //print stats
+        for (Player p : rbList) {
+
+            // System.out.println(p.getName() + " ");
+            p.printRunningBackAttributes();
+
+        }
+        return rbList;
 
 
     }
 
 
+    public static Double[] extractRunningBackData(String dataLine) {
+
+        String[] dataSep = dataLine.split(" ");
+        Double[] cleanData = new Double[11];
+
+        for (int i = 0; i < 11; i++) {
+            String tempNum = dataSep[i];
+            String newNum = tempNum;
+            if (tempNum.contains(",")) {
+                newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
+            }
+            cleanData[i] = Double.parseDouble(newNum);
+            //System.out.print(cleanData[i]+" ");
+        }
+
+        //  System.out.println("");
+
+        return cleanData;
+    }
+
+
+
+
+
+    public static String urlGetter(String seasonYear, String position) {
+        //part of UI
+        String url;
+
+        url = "https://www.fantasypros.com/nfl/stats/" + position + ".php?year=" + seasonYear;
+
+        return url;
+
+
+    }
+
+    public static void runProgram() throws IOException {
+
+//        Scanner s = new Scanner(System.in);
+//        System.out.println("For which season do you want player data?");
+//        String seasonYear = s.next();
+//
+//        System.out.println("For which position do you want player data?");
+//        System.out.println("Type qb, rb, wr, or te");
+//        String position = s.next();
+
+        //String url = urlGetter(seasonYear,position);
+        //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
+        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/rb.php");
+
+
+        ArrayList<Player> quarterbacks = createRunningBackList(b);
+    }
 
     public static void main(String[] args) throws IOException {
 
-       String url= urlGetter();
-       Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-       ArrayList<Player> quarterbacks=createQBList(b);
-
-
+        runProgram();
 
 
         //movie parser
