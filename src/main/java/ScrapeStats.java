@@ -149,7 +149,7 @@ public class ScrapeStats {
         for (Element e : body.select("tr")) {
             String playerName = e.select("td.player-label a").text();
             String readWRStats = e.select("td.center").text();
-            Double[] wrStats = extractWRData(readWRStats);
+            Double[] wrStats = extractReceiverData(readWRStats);
 
             Player temp= new Player(playerName);
             //wrList.add(new Player(playerName));
@@ -168,13 +168,12 @@ public class ScrapeStats {
 
             wrList.add(temp);
 
-            playerIteration++;
         }
 
         for (Player p : wrList) {
 
             // System.out.println(p.getName() + " ");
-            p.printWideReceiverAttributes();
+            p.printReceiverAttributes();
 
         }
 
@@ -183,7 +182,7 @@ public class ScrapeStats {
 
     }
 
-    public static Double[] extractWRData(String dataLine){
+    public static Double[] extractReceiverData(String dataLine){
         String[] dataSep = dataLine.split(" ");
         Double[] cleanData = new Double[11];
 
@@ -202,7 +201,98 @@ public class ScrapeStats {
         return cleanData;
     }
 
+    public static ArrayList<Player> createTightEndList(Elements body){
+        ArrayList<Player> teList = new ArrayList<>();
 
+        for (Element e : body.select("tr")) {
+            String playerName = e.select("td.player-label a").text();
+            String readTEStats = e.select("td.center").text();
+            Double[] teStats = extractReceiverData(readTEStats);
+
+            Player temp= new Player(playerName);
+            temp.setPosition("TE");
+
+            temp.setReceptions(teStats[0]);
+            temp.setTargets(teStats[1]);
+            temp.setRecYards(teStats[2]);
+            temp.setRecYardsPerCatch(teStats[3]);
+            temp.setLongestReception(teStats[4]);
+            temp.setTwentyPlusReceptions(teStats[5]);
+            temp.setRecTouchdowns(teStats[6]);
+            temp.setRushAttempts(teStats[7]);
+            temp.setRushYards(teStats[8]);
+            temp.setRushingTouchdowns(teStats[9]);
+
+            teList.add(temp);
+
+        }
+
+        for (Player p : teList) {
+
+            // System.out.println(p.getName() + " ");
+            p.printReceiverAttributes();
+
+        }
+
+        return teList;
+
+
+    }
+
+    public static ArrayList<Player> createKickerList(Elements body){
+        ArrayList<Player> kickerList = new ArrayList<>();
+
+        for (Element e : body.select("tr")) {
+            String playerName = e.select("td.player-label a").text();
+            String readKickerStats = e.select("td.center").text();
+            Double[] kickerStats = extractKickerData(readKickerStats);
+
+            Player temp= new Player(playerName);
+            temp.setPosition("K");
+
+            temp.setFieldGoalsMade(kickerStats[0]);
+            temp.setFgAttempts(kickerStats[1]);
+            temp.setFgPercent(kickerStats[2]);
+            temp.setLongestKickMade(kickerStats[3]);
+            temp.setUnder20Kicks(kickerStats[4]);
+            temp.setUnder30Kicks(kickerStats[5]);
+            temp.setUnder40Kicks(kickerStats[6]);
+            temp.setUnder50Kicks(kickerStats[7]);
+            temp.setOver50Kicks(kickerStats[8]);
+            temp.setExtraPointsMade(kickerStats[9]);
+            temp.setPatAttempts(kickerStats[10]);
+
+            kickerList.add(temp);
+
+        }
+
+
+        for (Player p : kickerList) {
+
+            // System.out.println(p.getName() + " ");
+            p.printKickerAttributes();
+        }
+        return kickerList;
+
+    }
+    public static Double[] extractKickerData(String dataLine){
+        String[] dataSep = dataLine.split(" ");
+        Double[] cleanData = new Double[11];
+
+        for (int i = 0; i < 11; i++) {
+            String tempNum = dataSep[i];
+            String newNum = tempNum;
+            if (tempNum.contains(",")) {
+                newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
+            }
+            cleanData[i] = Double.parseDouble(newNum);
+            //System.out.print(cleanData[i]+" ");
+        }
+
+        //  System.out.println("");
+
+        return cleanData;
+    }
 
     public static String urlGetter(String seasonYear, String position) {
         //part of UI
@@ -222,15 +312,15 @@ public class ScrapeStats {
 //        String seasonYear = s.next();
 //
 //        System.out.println("For which position do you want player data?");
-//        System.out.println("Type qb, rb, wr, or te");
+//        System.out.println("Type qb, rb, wr, te, k, or all");
 //        String position = s.next();
 
         //String url = urlGetter(seasonYear,position);
         //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/wr.php");
+        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
 
 
-        ArrayList<Player> wrs = createWideReceiverList(b);
+        ArrayList<Player> wrs = createKickerList(b);
     }
 
     public static void main(String[] args) throws IOException {

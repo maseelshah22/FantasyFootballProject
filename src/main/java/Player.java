@@ -30,6 +30,18 @@ public class Player {
     double longestReception;
     double twentyPlusReceptions;
 
+    double fieldGoalsMade;
+    double fgAttempts;
+    double fgPercent;
+    double longestKickMade;
+    double under20Kicks;
+    double under30Kicks;
+    double under40Kicks;
+    double under50Kicks;
+    double over50Kicks;
+    double extraPointsMade;
+    double patAttempts;
+
     public Player() {
 
     }
@@ -222,6 +234,95 @@ public class Player {
         this.twentyPlusReceptions = twentyPlusReceptions;
     }
 
+    public double getFieldGoalsMade() {
+        return fieldGoalsMade;
+    }
+
+    public void setFieldGoalsMade(double fieldGoalsMade) {
+        this.fieldGoalsMade = fieldGoalsMade;
+    }
+
+    public double getFgAttempts() {
+        return fgAttempts;
+    }
+
+    public void setFgAttempts(double fgAttempts) {
+        this.fgAttempts = fgAttempts;
+    }
+
+    public double getFgPercent() {
+        return fgPercent;
+    }
+
+    public void setFgPercent(double fgPercent) {
+        this.fgPercent = fgPercent;
+    }
+
+    public double getLongestKickMade() {
+        return longestKickMade;
+    }
+
+    public void setLongestKickMade(double longestKickMade) {
+        this.longestKickMade = longestKickMade;
+    }
+
+    public double getUnder20Kicks() {
+        return under20Kicks;
+    }
+
+    public void setUnder20Kicks(double under20Kicks) {
+        this.under20Kicks = under20Kicks;
+    }
+
+    public double getUnder30Kicks() {
+        return under30Kicks;
+    }
+
+    public void setUnder30Kicks(double under30Kicks) {
+        this.under30Kicks = under30Kicks;
+    }
+
+    public double getUnder40Kicks() {
+        return under40Kicks;
+    }
+
+    public void setUnder40Kicks(double under40Kicks) {
+        this.under40Kicks = under40Kicks;
+    }
+
+    public double getUnder50Kicks() {
+        return under50Kicks;
+    }
+
+    public void setUnder50Kicks(double under50Kicks) {
+        this.under50Kicks = under50Kicks;
+    }
+
+    public double getOver50Kicks() {
+        return over50Kicks;
+    }
+
+    public void setOver50Kicks(double over50Kicks) {
+        this.over50Kicks = over50Kicks;
+    }
+
+    public double getExtraPointsMade() {
+        return extraPointsMade;
+    }
+
+    public void setExtraPointsMade(double extraPointsMade) {
+        this.extraPointsMade = extraPointsMade;
+    }
+
+    public double getPatAttempts() {
+        return patAttempts;
+    }
+
+    public void setPatAttempts(double patAttempts) {
+        this.patAttempts = patAttempts;
+    }
+
+
     public void printQBAttributes() {
 
         System.out.println(getName());
@@ -259,7 +360,7 @@ public class Player {
 
     }
 
-    public void printWideReceiverAttributes(){
+    public void printReceiverAttributes(){
 
         System.out.println(getName());
         System.out.print("Position: " + getPosition() + " ");
@@ -275,6 +376,25 @@ public class Player {
         System.out.println("Rushing Touchdowns: " + getRushingTouchdowns() + " ");
 
     }
+
+    public void printKickerAttributes(){
+        System.out.println(getName());
+
+        System.out.print("Field Goals Made: "+ getFieldGoalsMade()+" ");
+        System.out.print("Field Goal Attempts: "+ getFgAttempts()+" ");
+        System.out.print("Field Goal Percent: "+ getFgPercent()+" ");
+        System.out.print("Longest Kick: " + getLongestKickMade()+" ");
+        System.out.print("Kicks Made Under 20 Yards: "+ getUnder20Kicks()+" ");
+        System.out.print("Kicks Made Under 30 Yards: "+ getUnder30Kicks()+" ");
+        System.out.print("Kicks Made Under 40 Yards: "+ getUnder40Kicks()+" ");
+        System.out.print("Kicks Made Under 50 Yards: "+ getUnder50Kicks()+" ");
+        System.out.print("Kicks Made Over 50 Yards: "+ getOver50Kicks()+" ");
+        System.out.print("Extra Point Attempts "+ getPatAttempts()+" ") ;
+        System.out.println("Extra Points Made "+ getExtraPointsMade()+" ");
+
+    }
+
+
 
 
 }
