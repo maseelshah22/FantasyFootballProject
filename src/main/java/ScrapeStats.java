@@ -142,7 +142,65 @@ public class ScrapeStats {
         return cleanData;
     }
 
+    public static ArrayList<Player> createWideReceiverList(Elements body){
+        int playerIteration = 0;
+        ArrayList<Player> wrList = new ArrayList<>();
 
+        for (Element e : body.select("tr")) {
+            String playerName = e.select("td.player-label a").text();
+            String readWRStats = e.select("td.center").text();
+            Double[] wrStats = extractWRData(readWRStats);
+
+            Player temp= new Player(playerName);
+            //wrList.add(new Player(playerName));
+            temp.setPosition("WR");
+
+            temp.setReceptions(wrStats[0]);
+            temp.setTargets(wrStats[1]);
+            temp.setRecYards(wrStats[2]);
+            temp.setRecYardsPerCatch(wrStats[3]);
+            temp.setLongestReception(wrStats[4]);
+            temp.setTwentyPlusReceptions(wrStats[5]);
+            temp.setRecTouchdowns(wrStats[6]);
+            temp.setRushAttempts(wrStats[7]);
+            temp.setRushYards(wrStats[8]);
+            temp.setRushingTouchdowns(wrStats[9]);
+
+            wrList.add(temp);
+
+            playerIteration++;
+        }
+
+        for (Player p : wrList) {
+
+            // System.out.println(p.getName() + " ");
+            p.printWideReceiverAttributes();
+
+        }
+
+        return wrList;
+
+
+    }
+
+    public static Double[] extractWRData(String dataLine){
+        String[] dataSep = dataLine.split(" ");
+        Double[] cleanData = new Double[11];
+
+        for (int i = 0; i < 10; i++) {
+            String tempNum = dataSep[i];
+            String newNum = tempNum;
+            if (tempNum.contains(",")) {
+                newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
+            }
+            cleanData[i] = Double.parseDouble(newNum);
+            //System.out.print(cleanData[i]+" ");
+        }
+
+        //  System.out.println("");
+
+        return cleanData;
+    }
 
 
 
@@ -169,10 +227,10 @@ public class ScrapeStats {
 
         //String url = urlGetter(seasonYear,position);
         //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/rb.php");
+        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/wr.php");
 
 
-        ArrayList<Player> quarterbacks = createRunningBackList(b);
+        ArrayList<Player> wrs = createWideReceiverList(b);
     }
 
     public static void main(String[] args) throws IOException {
