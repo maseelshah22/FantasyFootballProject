@@ -336,6 +336,7 @@ public class ScrapeStats {
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 qbList = createQBList(b);
+                System.out.println("Which statline would you like?");
                 break;
             case "rb":
                 url = urlGetter(seasonYear,position);
