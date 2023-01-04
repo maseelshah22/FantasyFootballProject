@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ScrapeStats {
 
@@ -307,43 +308,94 @@ public class ScrapeStats {
 
     public static void runProgram() throws IOException {
 
-//        Scanner s = new Scanner(System.in);
-//        System.out.println("For which season do you want player data?");
-//        String seasonYear = s.next();
-//
-//        System.out.println("For which position do you want player data?");
-//        System.out.println("Type qb, rb, wr, te, k, or all");
-//        String position = s.next();
-
-        //String url = urlGetter(seasonYear,position);
-        //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-        Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
+        String url;
+        ArrayList<Player> qbList;
+        ArrayList<Player> rbList;
+        ArrayList<Player> wrList;
+        ArrayList<Player> teList;
+        ArrayList<Player> kList;
 
 
-        ArrayList<Player> wrs = createKickerList(b);
+        Scanner s = new Scanner(System.in);
+        System.out.println("For which season after 2001 do you want player data?");
+        String seasonYear = s.next();
+
+        System.out.println("For which position do you want player data?");
+        System.out.println("Type QB, RB, WR, TE, K, or ALL");
+        String position = s.next();
+        position=position.toLowerCase();
+
+
+        url = urlGetter(seasonYear,position);
+        Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
+       // Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
+
+        switch (position){
+
+            case "qb":
+                url = urlGetter(seasonYear,position);
+                b= getSiteBody(url);
+                qbList = createQBList(b);
+                break;
+            case "rb":
+                url = urlGetter(seasonYear,position);
+                b= getSiteBody(url);
+                rbList = createRunningBackList(b);
+                break;
+            case "wr" :
+                url = urlGetter(seasonYear,position);
+                b= getSiteBody(url);
+                wrList = createWideReceiverList(b);
+                break;
+
+
+            case "te" :
+                url = urlGetter(seasonYear,position);
+                b= getSiteBody(url);
+                teList = createTightEndList(b);
+                break;
+
+            case "k":
+                url = urlGetter(seasonYear,position);
+                b= getSiteBody(url);
+                kList = createKickerList(b);
+                break;
+            case "all":
+
+                System.out.println("Quarterback Data for "+ seasonYear+" season");
+                url = urlGetter(seasonYear,"qb");
+                b= getSiteBody(url);
+                qbList = createQBList(b);
+
+                System.out.println("Running back Data for "+ seasonYear+" season");
+                url = urlGetter(seasonYear,"rb");
+                b= getSiteBody(url);
+                rbList = createRunningBackList(b);
+
+                System.out.println("Wide Receiver Data for "+ seasonYear+" season");
+                url = urlGetter(seasonYear,"wr");
+                b= getSiteBody(url);
+                wrList = createWideReceiverList(b);
+
+                System.out.println("Tight End Data for "+ seasonYear+" season");
+                url = urlGetter(seasonYear,"te");
+                b= getSiteBody(url);
+                teList = createTightEndList(b);
+
+                System.out.println("Kicker Data for "+ seasonYear+" season");
+                url = urlGetter(seasonYear,"k");
+                b= getSiteBody(url);
+                kList = createKickerList(b);
+                break;
+        }
+
+
+
     }
 
     public static void main(String[] args) throws IOException {
 
         runProgram();
-
-
-        //movie parser
-/*
-            String urlMovie="https://www.imdb.com/chart/top";
-
-            Document doc = Jsoup.connect(urlMovie).timeout(6000).get();
-
-            Elements body = doc.select("tbody.lister-list");
-            int num = body.select("tr").size();
-            System.out.println(num);
-
-            for(Element e: body.select("tr")){
-
-                String name = e.select("td.titlecolumn a").text();
-                System.out.println(name);
-
-            } */
 
     }
 }
