@@ -8,6 +8,16 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
+import org.apache.poi.ss.usermodel.*;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class ScrapeStats {
 
     public static Elements getSiteBody(String url) throws IOException {
@@ -306,9 +316,11 @@ public class ScrapeStats {
 
     }
 
-    public static void runProgram() throws IOException {
+    public void runProgram() throws IOException {
 
         String url;
+        Elements b;
+        int option=0;
         ArrayList<Player> qbList;
         ArrayList<Player> rbList;
         ArrayList<Player> wrList;
@@ -325,9 +337,23 @@ public class ScrapeStats {
         String position = s.next();
         position=position.toLowerCase();
 
+        while(!position.equals("qb") && !position.equals("rb") && !position.equals("wr") && !position.equals("te")
+                && !position.equals("k") && !position.equals("all")){
 
-        url = urlGetter(seasonYear,position);
-        Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
+            System.out.println("Please enter a valid option.");
+
+            System.out.println("For which position do you want player data?");
+            System.out.println("Type QB, RB, WR, TE, K, or ALL");
+
+            position = s.next();
+            position=position.toLowerCase();
+
+        }
+
+
+
+        //url = urlGetter(seasonYear,position);
+        //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
        // Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
 
         switch (position){
@@ -336,17 +362,19 @@ public class ScrapeStats {
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 qbList = createQBList(b);
-                System.out.println("Which statline would you like?");
+                option=1;
                 break;
             case "rb":
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 rbList = createRunningBackList(b);
+                option=2;
                 break;
             case "wr" :
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 wrList = createWideReceiverList(b);
+                option =3 ;
                 break;
 
 
@@ -354,12 +382,14 @@ public class ScrapeStats {
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 teList = createTightEndList(b);
+                option=4;
                 break;
 
             case "k":
                 url = urlGetter(seasonYear,position);
                 b= getSiteBody(url);
                 kList = createKickerList(b);
+                option=5;
                 break;
             case "all":
 
@@ -387,16 +417,20 @@ public class ScrapeStats {
                 url = urlGetter(seasonYear,"k");
                 b= getSiteBody(url);
                 kList = createKickerList(b);
+                option=6;
                 break;
         }
 
+    }
 
+    public static void makeExcel(int option, ArrayList<Player> list){
+        //Workbook book = new Workbook();
 
     }
 
     public static void main(String[] args) throws IOException {
 
-        runProgram();
+        //runProgram();
 
     }
 }
