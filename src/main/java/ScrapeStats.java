@@ -448,98 +448,7 @@ public class ScrapeStats {
 
         }
         else if(option==2) {
-            XSSFSheet rbSpreadsheet = workbook.createSheet("Running_Back_Data");
-
-            rowid = 0;
-            XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
-
-            Cell rbcell = rbRow.createCell(0);
-            //rbcell.setCellValue("Running Back Data");
-
-            int countRBHeaderCell=0;
-
-           // rbRow= rbSpreadsheet.createRow(rowid++);
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Name");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Attempts");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Rushing Yards");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Yards Per Attempt");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Longest Run");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("20+ Runs");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Rushing Touchdowns");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Receptions");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Targets");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Receiving Yards");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Yards/Reception");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Receiving Touchdowns");
-
-
-            for (Player p : list) {
-
-                rbRow = rbSpreadsheet.createRow(rowid++);
-
-                int cellid = 0;
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getName());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRushAttempts());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRushYards());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRushYardsPerAttempt());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getLongestRush());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getTwentyPlusRushes());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRushingTouchdowns());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getReceptions());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getTargets());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRecYards());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRecYardsPerCatch());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getRecTouchdowns());
-
-            }
+            makeRBSheet(list,workbook);
         }
         else if(option==3 || option ==4){
             XSSFSheet wrSpreadsheet= workbook.createSheet();
@@ -853,6 +762,103 @@ public class ScrapeStats {
 
     }
 
+    public static void makeRBSheet(ArrayList<Player> list, XSSFWorkbook workbook){
+        int rowid;
+
+        XSSFSheet rbSpreadsheet = workbook.createSheet("Running_Back_Data");
+
+        rowid = 0;
+        XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
+
+        Cell rbcell = rbRow.createCell(0);
+        //rbcell.setCellValue("Running Back Data");
+
+        int countRBHeaderCell=0;
+
+        // rbRow= rbSpreadsheet.createRow(rowid++);
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Name");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Attempts");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Rushing Yards");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Yards Per Attempt");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Longest Run");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("20+ Runs");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Rushing Touchdowns");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receptions");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Targets");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receiving Yards");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Yards/Reception");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receiving Touchdowns");
+
+
+        for (Player p : list) {
+
+            rbRow = rbSpreadsheet.createRow(rowid++);
+
+            int cellid = 0;
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getName());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushAttempts());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushYards());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushYardsPerAttempt());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getLongestRush());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getTwentyPlusRushes());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushingTouchdowns());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getReceptions());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getTargets());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRecYards());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRecYardsPerCatch());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRecTouchdowns());
+
+        }
+
+    }
 
     public static void exportAllToExcel(ArrayList<Player> qbList,ArrayList<Player> rbList, ArrayList<Player> wrList,
                                         ArrayList<Player> teList, ArrayList<Player> kList){
