@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,8 +8,13 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.io.File;
-import java.io.FileInputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+//import org.apache.poi.ss.usermodel.*;
+
 import java.io.IOException;
 
 
@@ -58,12 +63,12 @@ public class ScrapeStats {
 
         }
 
-        for (Player p : qbList) {
-
-           // System.out.println(p.getName() + " ");
-            p.printQBAttributes();
-
-        }
+//        for (Player p : qbList) {
+//
+//            // System.out.println(p.getName() + " ");
+//            p.printQBAttributes();
+//
+//        }
         return qbList;
     }
 
@@ -89,8 +94,7 @@ public class ScrapeStats {
     }
 
 
-
-    public static ArrayList<Player> createRunningBackList(Elements body){
+    public static ArrayList<Player> createRunningBackList(Elements body) {
         int playerIteration = 0;
         ArrayList<Player> rbList = new ArrayList<>();
 
@@ -121,12 +125,12 @@ public class ScrapeStats {
         }
 
         //print stats
-        for (Player p : rbList) {
-
-            // System.out.println(p.getName() + " ");
-            p.printRunningBackAttributes();
-
-        }
+//        for (Player p : rbList) {
+//
+//            // System.out.println(p.getName() + " ");
+//            p.printRunningBackAttributes();
+//
+//        }
         return rbList;
 
 
@@ -153,7 +157,7 @@ public class ScrapeStats {
         return cleanData;
     }
 
-    public static ArrayList<Player> createWideReceiverList(Elements body){
+    public static ArrayList<Player> createWideReceiverList(Elements body) {
         int playerIteration = 0;
         ArrayList<Player> wrList = new ArrayList<>();
 
@@ -162,7 +166,7 @@ public class ScrapeStats {
             String readWRStats = e.select("td.center").text();
             Double[] wrStats = extractReceiverData(readWRStats);
 
-            Player temp= new Player(playerName);
+            Player temp = new Player(playerName);
             //wrList.add(new Player(playerName));
             temp.setPosition("WR");
 
@@ -181,19 +185,19 @@ public class ScrapeStats {
 
         }
 
-        for (Player p : wrList) {
-
-            // System.out.println(p.getName() + " ");
-            p.printReceiverAttributes();
-
-        }
+//        for (Player p : wrList) {
+//
+//            // System.out.println(p.getName() + " ");
+//            p.printReceiverAttributes();
+//
+//        }
 
         return wrList;
 
 
     }
 
-    public static Double[] extractReceiverData(String dataLine){
+    public static Double[] extractReceiverData(String dataLine) {
         String[] dataSep = dataLine.split(" ");
         Double[] cleanData = new Double[11];
 
@@ -212,7 +216,7 @@ public class ScrapeStats {
         return cleanData;
     }
 
-    public static ArrayList<Player> createTightEndList(Elements body){
+    public static ArrayList<Player> createTightEndList(Elements body) {
         ArrayList<Player> teList = new ArrayList<>();
 
         for (Element e : body.select("tr")) {
@@ -220,7 +224,7 @@ public class ScrapeStats {
             String readTEStats = e.select("td.center").text();
             Double[] teStats = extractReceiverData(readTEStats);
 
-            Player temp= new Player(playerName);
+            Player temp = new Player(playerName);
             temp.setPosition("TE");
 
             temp.setReceptions(teStats[0]);
@@ -238,19 +242,19 @@ public class ScrapeStats {
 
         }
 
-        for (Player p : teList) {
-
-            // System.out.println(p.getName() + " ");
-            p.printReceiverAttributes();
-
-        }
+//        for (Player p : teList) {
+//
+//            // System.out.println(p.getName() + " ");
+//            p.printReceiverAttributes();
+//
+//        }
 
         return teList;
 
 
     }
 
-    public static ArrayList<Player> createKickerList(Elements body){
+    public static ArrayList<Player> createKickerList(Elements body) {
         ArrayList<Player> kickerList = new ArrayList<>();
 
         for (Element e : body.select("tr")) {
@@ -258,7 +262,7 @@ public class ScrapeStats {
             String readKickerStats = e.select("td.center").text();
             Double[] kickerStats = extractKickerData(readKickerStats);
 
-            Player temp= new Player(playerName);
+            Player temp = new Player(playerName);
             temp.setPosition("K");
 
             temp.setFieldGoalsMade(kickerStats[0]);
@@ -278,15 +282,16 @@ public class ScrapeStats {
         }
 
 
-        for (Player p : kickerList) {
-
-            // System.out.println(p.getName() + " ");
-            p.printKickerAttributes();
-        }
+//        for (Player p : kickerList) {
+//
+//            // System.out.println(p.getName() + " ");
+//            p.printKickerAttributes();
+//        }
         return kickerList;
 
     }
-    public static Double[] extractKickerData(String dataLine){
+
+    public static Double[] extractKickerData(String dataLine) {
         String[] dataSep = dataLine.split(" ");
         Double[] cleanData = new Double[11];
 
@@ -320,7 +325,7 @@ public class ScrapeStats {
 
         String url;
         Elements b;
-        int option=0;
+        int option = 0;
         ArrayList<Player> qbList;
         ArrayList<Player> rbList;
         ArrayList<Player> wrList;
@@ -335,10 +340,10 @@ public class ScrapeStats {
         System.out.println("For which position do you want player data?");
         System.out.println("Type QB, RB, WR, TE, K, or ALL");
         String position = s.next();
-        position=position.toLowerCase();
+        position = position.toLowerCase();
 
-        while(!position.equals("qb") && !position.equals("rb") && !position.equals("wr") && !position.equals("te")
-                && !position.equals("k") && !position.equals("all")){
+        while (!position.equals("qb") && !position.equals("rb") && !position.equals("wr") && !position.equals("te")
+                && !position.equals("k") && !position.equals("all")) {
 
             System.out.println("Please enter a valid option.");
 
@@ -346,87 +351,374 @@ public class ScrapeStats {
             System.out.println("Type QB, RB, WR, TE, K, or ALL");
 
             position = s.next();
-            position=position.toLowerCase();
+            position = position.toLowerCase();
 
         }
-
 
 
         //url = urlGetter(seasonYear,position);
         //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-       // Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
+        // Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
 
-        switch (position){
+        switch (position) {
 
             case "qb":
-                url = urlGetter(seasonYear,position);
-                b= getSiteBody(url);
+                url = urlGetter(seasonYear, position);
+                b = getSiteBody(url);
                 qbList = createQBList(b);
-                option=1;
+                option = 1;
+                makeExcel(option,qbList);
+
                 break;
             case "rb":
-                url = urlGetter(seasonYear,position);
-                b= getSiteBody(url);
+                url = urlGetter(seasonYear, position);
+                b = getSiteBody(url);
                 rbList = createRunningBackList(b);
-                option=2;
+                option = 2;
+                makeExcel(option,rbList);
                 break;
-            case "wr" :
-                url = urlGetter(seasonYear,position);
-                b= getSiteBody(url);
+            case "wr":
+                url = urlGetter(seasonYear, position);
+                b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
-                option =3 ;
+                option = 3;
+                makeExcel(option,wrList);
                 break;
 
 
-            case "te" :
-                url = urlGetter(seasonYear,position);
-                b= getSiteBody(url);
+            case "te":
+                url = urlGetter(seasonYear, position);
+                b = getSiteBody(url);
                 teList = createTightEndList(b);
-                option=4;
+                option = 4;
+                makeExcel(option,teList);
                 break;
 
             case "k":
-                url = urlGetter(seasonYear,position);
-                b= getSiteBody(url);
+                url = urlGetter(seasonYear, position);
+                b = getSiteBody(url);
                 kList = createKickerList(b);
-                option=5;
+                option = 5;
+                makeExcel(option,kList);
                 break;
             case "all":
 
-                System.out.println("Quarterback Data for "+ seasonYear+" season");
-                url = urlGetter(seasonYear,"qb");
-                b= getSiteBody(url);
+                System.out.println("Quarterback Data for " + seasonYear + " season");
+                url = urlGetter(seasonYear, "qb");
+                b = getSiteBody(url);
                 qbList = createQBList(b);
 
-                System.out.println("Running back Data for "+ seasonYear+" season");
-                url = urlGetter(seasonYear,"rb");
-                b= getSiteBody(url);
+                System.out.println("Running back Data for " + seasonYear + " season");
+                url = urlGetter(seasonYear, "rb");
+                b = getSiteBody(url);
                 rbList = createRunningBackList(b);
 
-                System.out.println("Wide Receiver Data for "+ seasonYear+" season");
-                url = urlGetter(seasonYear,"wr");
-                b= getSiteBody(url);
+                System.out.println("Wide Receiver Data for " + seasonYear + " season");
+                url = urlGetter(seasonYear, "wr");
+                b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
 
-                System.out.println("Tight End Data for "+ seasonYear+" season");
-                url = urlGetter(seasonYear,"te");
-                b= getSiteBody(url);
+                System.out.println("Tight End Data for " + seasonYear + " season");
+                url = urlGetter(seasonYear, "te");
+                b = getSiteBody(url);
                 teList = createTightEndList(b);
 
-                System.out.println("Kicker Data for "+ seasonYear+" season");
-                url = urlGetter(seasonYear,"k");
-                b= getSiteBody(url);
+                System.out.println("Kicker Data for " + seasonYear + " season");
+                url = urlGetter(seasonYear, "k");
+                b = getSiteBody(url);
                 kList = createKickerList(b);
-                option=6;
+
+                option = 6;
+
                 break;
         }
 
-    }
-
-    public static void makeExcel(int option, ArrayList<Player> list){
-        //Workbook book = new Workbook();
 
     }
+
+    public static void makeExcel(int option, ArrayList<Player> list) throws IOException {
+        // workbook object
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+        // spreadsheet object
+       // XSSFSheet spreadsheet; //= workbook.createSheet("QuarterbackData");
+
+        // creating a row object
+       // XSSFRow row;
+
+
+        int rowid;
+
+        //quarterback sheet
+        if(option==1){
+            XSSFSheet qbSpreadsheet = workbook.createSheet("QuarterbackData");
+
+            rowid=0;
+            XSSFRow qbRow = qbSpreadsheet.createRow(rowid++);
+
+            Cell qbcell = qbRow.createCell(0);
+            qbcell.setCellValue("Name");
+
+            qbcell = qbRow.createCell(1);
+            qbcell.setCellValue("Completions");
+
+            qbcell = qbRow.createCell(2);
+            qbcell.setCellValue("Attempts");
+
+            qbcell = qbRow.createCell(3);
+            qbcell.setCellValue("Completion Percent");
+
+            qbcell = qbRow.createCell(4);
+            qbcell.setCellValue("Passing Yards");
+
+            qbcell = qbRow.createCell(5);
+            qbcell.setCellValue("Yards/Attempt");
+
+            qbcell = qbRow.createCell(6);
+            qbcell.setCellValue("Touchdown Passes");
+
+            qbcell = qbRow.createCell(7);
+            qbcell.setCellValue("Interceptions");
+
+            qbcell = qbRow.createCell(8);
+            qbcell.setCellValue("Sacks");
+
+            qbcell = qbRow.createCell(9);
+            qbcell.setCellValue("Rushing Attempts");
+
+            qbcell = qbRow.createCell(10);
+            qbcell.setCellValue("Rushing Yards");
+
+            qbcell = qbRow.createCell(11);
+            qbcell.setCellValue("Rushing Touchdowns");
+
+            for (Player p : list) {
+
+                qbRow = qbSpreadsheet.createRow(rowid++);
+
+
+                int cellid = 0;
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getName());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getCompletions());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassAttempts());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getCompletionPercent());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassingYards());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassYardsPerAttempt());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getTouchdownPasses());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getInterceptions());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getSacks());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushAttempts());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushYards());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushingTouchdowns());
+
+            }
+
+        }
+        else if(option==2) {
+            XSSFSheet rbSpreadsheet = workbook.createSheet("RunningbackData");
+
+            rowid = 0;
+            XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
+
+            Cell rbcell = rbRow.createCell(0);
+            rbcell.setCellValue("Name");
+
+            rbcell = rbRow.createCell(1);
+            rbcell.setCellValue("Attempts");
+
+            rbcell = rbRow.createCell(2);
+            rbcell.setCellValue("Rushing Yards");
+
+            rbcell = rbRow.createCell(3);
+            rbcell.setCellValue("Yards Per Attempt");
+
+            rbcell = rbRow.createCell(4);
+            rbcell.setCellValue("Longest Run");
+
+            rbcell = rbRow.createCell(5);
+            rbcell.setCellValue("20+ Runs");
+
+            rbcell = rbRow.createCell(6);
+            rbcell.setCellValue("Rushing Touchdowns");
+
+            rbcell = rbRow.createCell(7);
+            rbcell.setCellValue("Receptions");
+
+            rbcell = rbRow.createCell(8);
+            rbcell.setCellValue("Targets");
+
+            rbcell = rbRow.createCell(9);
+            rbcell.setCellValue("Receiving Yards");
+
+            rbcell = rbRow.createCell(10);
+            rbcell.setCellValue("Yards/Reception");
+
+            rbcell = rbRow.createCell(11);
+            rbcell.setCellValue("Receiving Touchdowns");
+
+
+            for (Player p : list) {
+
+                rbRow = rbSpreadsheet.createRow(rowid++);
+
+                int cellid = 0;
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getName());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushAttempts());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushYards());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushYardsPerAttempt());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getLongestRush());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getTwentyPlusRushes());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushingTouchdowns());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getReceptions());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getTargets());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRecYards());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRecYardsPerCatch());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRecTouchdowns());
+
+            }
+        }
+        else if(option==3){
+            XSSFSheet wrSpreadsheet = workbook.createSheet("WideReceiverData");
+
+            rowid = 0;
+            XSSFRow wrRow = wrSpreadsheet.createRow(rowid++);
+
+            int countWRHeaderCell=0;
+
+            Cell wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Name");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Receptions");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Targets");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Receiving Yards");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Yards/Reception");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Longest Reception");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("20+ Yard Receptions");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Receiving Touchdowns");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Rushing Attempts");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Rushing Yards");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Rushing Touchdowns");
+
+
+            for (Player p : list) {
+
+                wrRow = wrSpreadsheet.createRow(rowid++);
+
+                int cellid = 0;
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getName());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getReceptions());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getTargets());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRecYards());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRecYardsPerCatch());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getLongestReception());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getTwentyPlusReceptions());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRecTouchdowns());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRushAttempts());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRushYards());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getRushingTouchdowns());
+
+            }
+        }
+
+        // writing the data into the sheets...
+
+
+        FileOutputStream out = new FileOutputStream(
+                new File("/Users/maseelshah/Downloads/testdata.xlsx"));
+
+        workbook.write(out);
+        out.close();
+    }
+
 
     public static void main(String[] args) throws IOException {
 

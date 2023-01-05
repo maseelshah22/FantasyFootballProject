@@ -4,7 +4,7 @@ public class UserInterface {
 
     public static void main(String [] args) throws IOException {
 
-
+        menu();
     }
 
     public static void menu() throws IOException {
