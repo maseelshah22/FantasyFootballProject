@@ -451,51 +451,57 @@ public class ScrapeStats {
 
         //quarterback sheet
         if(option==1){
-            XSSFSheet qbSpreadsheet = workbook.createSheet("QuarterbackData");
+            XSSFSheet qbSpreadsheet = workbook.createSheet("Quarterback_Data");
 
             rowid=0;
-            XSSFRow qbRow = qbSpreadsheet.createRow(rowid++);
+            XSSFRow qbRow =qbSpreadsheet.createRow(rowid++);
 
             Cell qbcell = qbRow.createCell(0);
+            qbcell.setCellValue("Quarterback Data");
+
+            int countQBHeaderCell=0;
+
+            qbRow= qbSpreadsheet.createRow(rowid++);
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Name");
 
-            qbcell = qbRow.createCell(1);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Completions");
 
-            qbcell = qbRow.createCell(2);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Attempts");
 
-            qbcell = qbRow.createCell(3);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Completion Percent");
 
-            qbcell = qbRow.createCell(4);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Passing Yards");
 
-            qbcell = qbRow.createCell(5);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Yards/Attempt");
 
-            qbcell = qbRow.createCell(6);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Touchdown Passes");
 
-            qbcell = qbRow.createCell(7);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Interceptions");
 
-            qbcell = qbRow.createCell(8);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Sacks");
 
-            qbcell = qbRow.createCell(9);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Rushing Attempts");
 
-            qbcell = qbRow.createCell(10);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Rushing Yards");
 
-            qbcell = qbRow.createCell(11);
+            qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Rushing Touchdowns");
 
             for (Player p : list) {
 
                 qbRow = qbSpreadsheet.createRow(rowid++);
-
 
                 int cellid = 0;
 
@@ -539,7 +545,7 @@ public class ScrapeStats {
 
         }
         else if(option==2) {
-            XSSFSheet rbSpreadsheet = workbook.createSheet("RunningbackData");
+            XSSFSheet rbSpreadsheet = workbook.createSheet("Running_Back_Data");
 
             rowid = 0;
             XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
@@ -625,8 +631,17 @@ public class ScrapeStats {
 
             }
         }
-        else if(option==3){
-            XSSFSheet wrSpreadsheet = workbook.createSheet("WideReceiverData");
+        else if(option==3 || option ==4){
+            XSSFSheet wrSpreadsheet= workbook.createSheet();
+           // workbook.nam
+
+            if(option==3){
+                workbook.setSheetName(0,"Wide_Receiver_Data");
+
+            }
+            else if(option==4){
+                workbook.setSheetName(0,"Tight_End_Data");
+            }
 
             rowid = 0;
             XSSFRow wrRow = wrSpreadsheet.createRow(rowid++);
@@ -708,12 +723,109 @@ public class ScrapeStats {
 
             }
         }
+        else if(option == 5){
+
+            XSSFSheet kickerSpreadsheet = workbook.createSheet("Kicker_Data");
+
+            rowid = 0;
+            XSSFRow kRow = kickerSpreadsheet.createRow(rowid++);
+
+            int countKHeaderCell=0;
+
+            Cell kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Name");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Field Goals Made");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Field Goal Attempts");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Field Goal Percent");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Longest Kick");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Kicks Under 20 Yards");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Kicks Under 30 Yards");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Kicks Under 40 Yards");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Kicks Under 50 Yards");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Kicks Above 50 Yards");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Extra Points Made");
+
+            kCell = kRow.createCell(countKHeaderCell++);
+            kCell.setCellValue("Extra Point Attempts");
+
+            for (Player p : list) {
+
+                kRow = kickerSpreadsheet.createRow(rowid++);
+
+                int cellid = 0;
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getName());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getFieldGoalsMade());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getFgAttempts());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getFgPercent());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getLongestKickMade());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getUnder20Kicks());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getUnder30Kicks());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getUnder40Kicks());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getUnder50Kicks());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getOver50Kicks());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getExtraPointsMade());
+
+                kCell = kRow.createCell(cellid++);
+                kCell.setCellValue(p.getPatAttempts());
+
+
+            }
+        }
+
 
         // writing the data into the sheets...
 
+        System.out.println("What is the name of the file you would like to create to store the data in?");
+        System.out.println("NOTE: If this filename already exists the data will be overridden.");
+
+        Scanner scanExcelLoc=new Scanner(System.in);
+
+        String fileName= scanExcelLoc.next();
 
         FileOutputStream out = new FileOutputStream(
-                new File("/Users/maseelshah/Downloads/testdata.xlsx"));
+                new File("/Users/maseelshah/Downloads/"+fileName+".xlsx"));
 
         workbook.write(out);
         out.close();
