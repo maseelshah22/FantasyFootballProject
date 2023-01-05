@@ -440,108 +440,11 @@ public class ScrapeStats {
         // workbook object
         XSSFWorkbook workbook = new XSSFWorkbook();
 
-        // spreadsheet object
-       // XSSFSheet spreadsheet; //= workbook.createSheet("QuarterbackData");
-
-        // creating a row object
-       // XSSFRow row;
-
-
         int rowid;
 
         //quarterback sheet
         if(option==1){
-            XSSFSheet qbSpreadsheet = workbook.createSheet("Quarterback_Data");
-
-            rowid=0;
-            XSSFRow qbRow =qbSpreadsheet.createRow(rowid++);
-
-            Cell qbcell = qbRow.createCell(0);
-            qbcell.setCellValue("Quarterback Data");
-
-            int countQBHeaderCell=0;
-
-            qbRow= qbSpreadsheet.createRow(rowid++);
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Name");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Completions");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Attempts");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Completion Percent");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Passing Yards");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Yards/Attempt");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Touchdown Passes");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Interceptions");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Sacks");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Rushing Attempts");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Rushing Yards");
-
-            qbcell = qbRow.createCell(countQBHeaderCell++);
-            qbcell.setCellValue("Rushing Touchdowns");
-
-            for (Player p : list) {
-
-                qbRow = qbSpreadsheet.createRow(rowid++);
-
-                int cellid = 0;
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getName());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getCompletions());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getPassAttempts());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getCompletionPercent());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getPassingYards());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getPassYardsPerAttempt());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getTouchdownPasses());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getInterceptions());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getSacks());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getRushAttempts());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getRushYards());
-
-                qbcell = qbRow.createCell(cellid++);
-                qbcell.setCellValue(p.getRushingTouchdowns());
-
-            }
+            makeQBSheet(list,workbook);
 
         }
         else if(option==2) {
@@ -551,39 +454,46 @@ public class ScrapeStats {
             XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
 
             Cell rbcell = rbRow.createCell(0);
+            //rbcell.setCellValue("Running Back Data");
+
+            int countRBHeaderCell=0;
+
+           // rbRow= rbSpreadsheet.createRow(rowid++);
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Name");
 
-            rbcell = rbRow.createCell(1);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Attempts");
 
-            rbcell = rbRow.createCell(2);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Rushing Yards");
 
-            rbcell = rbRow.createCell(3);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Yards Per Attempt");
 
-            rbcell = rbRow.createCell(4);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Longest Run");
 
-            rbcell = rbRow.createCell(5);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("20+ Runs");
 
-            rbcell = rbRow.createCell(6);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Rushing Touchdowns");
 
-            rbcell = rbRow.createCell(7);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Receptions");
 
-            rbcell = rbRow.createCell(8);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Targets");
 
-            rbcell = rbRow.createCell(9);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Receiving Yards");
 
-            rbcell = rbRow.createCell(10);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Yards/Reception");
 
-            rbcell = rbRow.createCell(11);
+            rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Receiving Touchdowns");
 
 
@@ -633,7 +543,7 @@ public class ScrapeStats {
         }
         else if(option==3 || option ==4){
             XSSFSheet wrSpreadsheet= workbook.createSheet();
-           // workbook.nam
+
 
             if(option==3){
                 workbook.setSheetName(0,"Wide_Receiver_Data");
@@ -645,6 +555,17 @@ public class ScrapeStats {
 
             rowid = 0;
             XSSFRow wrRow = wrSpreadsheet.createRow(rowid++);
+
+//            Cell recCell = wrRow.createCell(0);
+//
+//            if(option==3) {
+//                recCell.setCellValue("Wide Receiver Data");
+//            } else if (option == 4) {
+//                recCell.setCellValue("Tight End Data");
+//
+//            }
+//
+//            wrRow = wrSpreadsheet.createRow(rowid++);
 
             int countWRHeaderCell=0;
 
@@ -831,6 +752,114 @@ public class ScrapeStats {
         out.close();
     }
 
+    public static void makeQBSheet(ArrayList<Player> list, XSSFWorkbook workbook){
+
+        int rowid;
+
+        //quarterback sheet
+
+            XSSFSheet qbSpreadsheet = workbook.createSheet("Quarterback_Data");
+
+            rowid=0;
+            XSSFRow qbRow =qbSpreadsheet.createRow(rowid++);
+
+            Cell qbcell = qbRow.createCell(0);
+            // qbcell.setCellValue("Quarterback Data");
+
+            int countQBHeaderCell=0;
+
+            // qbRow= qbSpreadsheet.createRow(rowid++);
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Name");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Completions");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Attempts");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Completion Percent");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Passing Yards");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Yards/Attempt");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Touchdown Passes");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Interceptions");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Sacks");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Rushing Attempts");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Rushing Yards");
+
+            qbcell = qbRow.createCell(countQBHeaderCell++);
+            qbcell.setCellValue("Rushing Touchdowns");
+
+            for (Player p : list) {
+
+                qbRow = qbSpreadsheet.createRow(rowid++);
+
+                int cellid = 0;
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getName());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getCompletions());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassAttempts());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getCompletionPercent());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassingYards());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getPassYardsPerAttempt());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getTouchdownPasses());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getInterceptions());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getSacks());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushAttempts());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushYards());
+
+                qbcell = qbRow.createCell(cellid++);
+                qbcell.setCellValue(p.getRushingTouchdowns());
+
+
+        }
+
+    }
+
+
+    public static void exportAllToExcel(ArrayList<Player> qbList,ArrayList<Player> rbList, ArrayList<Player> wrList,
+                                        ArrayList<Player> teList, ArrayList<Player> kList){
+
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+    }
 
     public static void main(String[] args) throws IOException {
 
