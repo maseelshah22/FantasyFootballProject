@@ -20,6 +20,8 @@ import java.time.*;
 import java.io.IOException;
 
 public class ScrapeStats {
+
+    //TODO: Add TD:INT ratio, add fantasy point calculations --> rushing + passing and stacked bar chart
 public static int seasonYear=0;
     public static Elements getSiteBody(String url) throws IOException {
 
