@@ -18,7 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 
 public class ScrapeStats {
-
+public static String seasonYear="";
     public static Elements getSiteBody(String url) throws IOException {
 
         String urlQBStats = url;
@@ -329,7 +329,7 @@ public class ScrapeStats {
 
         Scanner s = new Scanner(System.in);
         System.out.println("For which season after 2001 do you want player data?");
-        String seasonYear = s.next();
+        seasonYear = s.next();
 
         System.out.println("For which position do you want player data?");
         System.out.println("Type QB, RB, WR, TE, K, or ALL");
@@ -361,7 +361,7 @@ public class ScrapeStats {
                 b = getSiteBody(url);
                 qbList = createQBList(b);
                 option = 1;
-                makeExcelSheet(option, qbList);
+                ExportExcelSheet(option, qbList);
 
                 break;
             case "rb":
@@ -369,14 +369,14 @@ public class ScrapeStats {
                 b = getSiteBody(url);
                 rbList = createRunningBackList(b);
                 option = 2;
-                makeExcelSheet(option, rbList);
+                ExportExcelSheet(option, rbList);
                 break;
             case "wr":
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
                 option = 3;
-                makeExcelSheet(option, wrList);
+                ExportExcelSheet(option, wrList);
                 break;
 
             case "te":
@@ -384,7 +384,7 @@ public class ScrapeStats {
                 b = getSiteBody(url);
                 teList = createTightEndList(b);
                 option = 4;
-                makeExcelSheet(option, teList);
+                ExportExcelSheet(option, teList);
                 break;
 
             case "k":
@@ -392,7 +392,7 @@ public class ScrapeStats {
                 b = getSiteBody(url);
                 kList = createKickerList(b);
                 option = 5;
-                makeExcelSheet(option, kList);
+                ExportExcelSheet(option, kList);
                 break;
             case "all":
 
@@ -423,7 +423,7 @@ public class ScrapeStats {
 
                 option = 6;
 
-                makeAllSheets(qbList,rbList,wrList,teList,kList);
+                ExportAllSheets(qbList,rbList,wrList,teList,kList);
 
                 break;
         }
@@ -431,34 +431,52 @@ public class ScrapeStats {
 
     }
 
-    public static void makeExcelSheet(int option, ArrayList<Player> list) throws IOException {
+    public static void ExportExcelSheet(int option, ArrayList<Player> list) throws IOException {
         // workbook object
         XSSFWorkbook workbook = new XSSFWorkbook();
+        String fileName="";
 
         if (option == 1) {
             makeQBSheet(list, workbook);
+            fileName="QB_Data_"+ seasonYear+"_NFL"+"_Season";
 
         } else if (option == 2) {
             makeRBSheet(list, workbook);
+            fileName="RB_Data_" + seasonYear +"_NFL" +"_Season";
         } else if (option == 3 || option == 4) {
 
             makeReceiverSheet(option, list, workbook);
 
+            if(option==3){
+                fileName="WR_Data_" + seasonYear+ "_NFL" +"_Season";
+            }
+            else{
+                fileName="TE_Data_" + seasonYear +"_NFL" + "_Season";
+            }
+
         } else if (option == 5) {
 
             makeKickerSheet(list, workbook);
+            fileName="TE_Data_"+ seasonYear +"_NFL" +"_Season";
         }
 
 
-
         // writing the data into the sheets...
+       // System.out.println("Would you like a custom name for your excel file or an auto-generated name?");
+       // System.out.println("Enter 1 to Enter a Custom Name");
+      //  System.out.println("Enter 2 for an auto-generated name");
 
-        System.out.println("What is the name of the file you would like to create to store the data in?");
-        System.out.println("NOTE: If this filename already exists the data will be overridden.");
+      //  Scanner nameOptionScanner=new Scanner(System.in);
+     //   String numOption=nameOptionScanner.next();
 
-        Scanner scanExcelLoc = new Scanner(System.in);
+     //   if(numOption.equals("1")) {
+          //  System.out.println("What is the name of the file you would like to create to store the data in?");
+          //  System.out.println("NOTE: If this filename already exists the data will be overridden.");
 
-        String fileName = scanExcelLoc.next();
+          //  Scanner scanExcelLoc = new Scanner(System.in);
+
+          //  fileName = scanExcelLoc.next();
+       // }
 
         FileOutputStream out = new FileOutputStream(
                 new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
@@ -852,8 +870,8 @@ public class ScrapeStats {
 
 
 
-    public static void makeAllSheets(ArrayList<Player> qbList, ArrayList<Player> rbList, ArrayList<Player> wrList,
-                                        ArrayList<Player> teList, ArrayList<Player> kList) throws IOException {
+    public static void ExportAllSheets(ArrayList<Player> qbList, ArrayList<Player> rbList, ArrayList<Player> wrList,
+                                       ArrayList<Player> teList, ArrayList<Player> kList) throws IOException {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         makeQBSheet(qbList,workbook);
@@ -866,12 +884,15 @@ public class ScrapeStats {
         workbook.setSheetName(3, "Tight_End_Data");
 
 
-        System.out.println("What is the name of the file you would like to create to store the data in?");
-        System.out.println("NOTE: If this filename already exists the data will be overridden.");
+        //System.out.println("What is the name of the file you would like to create to store the data in?");
+        //System.out.println("NOTE: If this filename already exists the data will be overridden.");
 
-        Scanner scanExcelLoc = new Scanner(System.in);
+       // Scanner scanExcelLoc = new Scanner(System.in);
 
-        String fileName = scanExcelLoc.next();
+       // String fileName = scanExcelLoc.next();
+
+        String fileName="All_Data_"+ seasonYear +"_NFL"+"_Season";
+
 
         FileOutputStream out = new FileOutputStream(
                 new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
