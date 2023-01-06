@@ -328,7 +328,8 @@ public static String seasonYear="";
 
 
         Scanner s = new Scanner(System.in);
-        System.out.println("For which season after 2001 do you want player data?");
+        System.out.println("For which season do you want player data? \n      " +
+                "*Must be AFTER 2001");
         seasonYear = s.next();
 
         System.out.println("For which position do you want player data?");
@@ -895,7 +896,8 @@ public static String seasonYear="";
 
 
         FileOutputStream out = new FileOutputStream(
-                new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
+                new File("/Users/" + fileName + ".xlsx"));
+        //   /maseelshah/Downloads/
 
         workbook.write(out);
         out.close();
