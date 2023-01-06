@@ -13,12 +13,14 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.time.*;
+
 //import org.apache.poi.ss.usermodel.*;
 
 import java.io.IOException;
 
 public class ScrapeStats {
-public static String seasonYear="";
+public static int seasonYear=0;
     public static Elements getSiteBody(String url) throws IOException {
 
         String urlQBStats = url;
@@ -304,7 +306,7 @@ public static String seasonYear="";
         return cleanData;
     }
 
-    public static String urlGetter(String seasonYear, String position) {
+    public static String urlGetter(int seasonYear, String position) {
         //part of UI
         String url;
 
@@ -330,7 +332,22 @@ public static String seasonYear="";
         Scanner s = new Scanner(System.in);
         System.out.println("For which season do you want player data? \n      " +
                 "*Must be AFTER 2001");
-        seasonYear = s.next();
+
+        seasonYear = s.nextInt();
+
+        Year y= Year.now();
+        int currentActualYear=y.getValue();
+
+        while(seasonYear<2002 || seasonYear>=currentActualYear){
+
+            System.out.println("Invalid Year Was Entered. Please Try Again");
+            System.out.println("For which season do you want player data? \n      " +
+                    "*MUST be AFTER 2001*");
+
+            seasonYear = s.nextInt();
+
+        }
+
 
         System.out.println("For which position do you want player data?");
         System.out.println("Type QB, RB, WR, TE, K, or ALL");
@@ -397,27 +414,27 @@ public static String seasonYear="";
                 break;
             case "all":
 
-                System.out.println("Quarterback Data for " + seasonYear + " season");
+                System.out.println("Generating Quarterback Data for " + seasonYear + " season...DONE");
                 url = urlGetter(seasonYear, "qb");
                 b = getSiteBody(url);
                 qbList = createQBList(b);
 
-                System.out.println("Running back Data for " + seasonYear + " season");
+                System.out.println("Generating Running back Data for " + seasonYear + " season...DONE");
                 url = urlGetter(seasonYear, "rb");
                 b = getSiteBody(url);
                 rbList = createRunningBackList(b);
 
-                System.out.println("Wide Receiver Data for " + seasonYear + " season");
+                System.out.println("Generating Wide Receiver Data for " + seasonYear + " season...DONE");
                 url = urlGetter(seasonYear, "wr");
                 b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
 
-                System.out.println("Tight End Data for " + seasonYear + " season");
+                System.out.println("Generating Tight End Data for " + seasonYear + " season...DONE");
                 url = urlGetter(seasonYear, "te");
                 b = getSiteBody(url);
                 teList = createTightEndList(b);
 
-                System.out.println("Kicker Data for " + seasonYear + " season");
+                System.out.println("Generating Kicker Data for " + seasonYear + " season...DONE");
                 url = urlGetter(seasonYear, "k");
                 b = getSiteBody(url);
                 kList = createKickerList(b);
@@ -458,7 +475,7 @@ public static String seasonYear="";
         } else if (option == 5) {
 
             makeKickerSheet(list, workbook);
-            fileName="TE_Data_"+ seasonYear +"_NFL" +"_Season";
+            fileName="K_Data_"+ seasonYear +"_NFL" +"_Season";
         }
 
 
@@ -896,7 +913,7 @@ public static String seasonYear="";
 
 
         FileOutputStream out = new FileOutputStream(
-                new File("/Users/" + fileName + ".xlsx"));
+                new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
         //   /maseelshah/Downloads/
 
         workbook.write(out);
@@ -905,8 +922,9 @@ public static String seasonYear="";
     }
 
     public static void main(String[] args) throws IOException {
+      //  Year y= Year.now();
 
-        //runProgram();
+        //System.out.println(y.getValue());
 
     }
 }
