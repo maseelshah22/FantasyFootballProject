@@ -4,43 +4,54 @@ public class Player {
 
     String position; // QB, WR, TE, RB --> abbreviations only
 
-    double completions;
-    double passAttempts;
-    double completionPercent;
-    double passingYards;
-    double passYardsPerAttempt;
-    double touchdownPasses;
-    double interceptions;
-    double sacks;
-    double rushAttempts;
-    double rushYards;
-    double rushingTouchdowns;
+    public double completions;
+    public double passAttempts;
+    public double completionPercent;
+    public double passingYards;
+    public double passYardsPerAttempt;
+    public double touchdownPasses;
+    public double interceptions;
+    public double sacks;
+    public double rushAttempts;
+    public  double rushYards;
+    public double rushingTouchdowns;
 
-    double longestRush;
+    public double longestRush;
 
-    double rushYardsPerAttempt;
-    double twentyPlusRushes;
+    public double rushYardsPerAttempt;
+    public double twentyPlusRushes;
 
-    double receptions;
-    double targets;
-    double recYards;
-    double recYardsPerCatch;
-    double recTouchdowns;
+    public  double receptions;
+    public double targets;
+    public double recYards;
+    public double recYardsPerCatch;
+    public double recTouchdowns;
 
-    double longestReception;
-    double twentyPlusReceptions;
+    public double longestReception;
+    public double twentyPlusReceptions;
+    public double fieldGoalsMade;
+    public  double fgAttempts;
+    public double fgPercent;
+    public double longestKickMade;
+    public double under20Kicks;
+    public double under30Kicks;
+    public double under40Kicks;
+    public double under50Kicks;
+    public double over50Kicks;
+    public double extraPointsMade;
+    public double patAttempts;
 
-    double fieldGoalsMade;
-    double fgAttempts;
-    double fgPercent;
-    double longestKickMade;
-    double under20Kicks;
-    double under30Kicks;
-    double under40Kicks;
-    double under50Kicks;
-    double over50Kicks;
-    double extraPointsMade;
-    double patAttempts;
+    public double gamesPlayed;
+    public double totalFantasyPoints;
+    public double passingPoints;
+    public double rushingYardPoints;
+    public double totalReceivingPoints;
+    public double receptionPoints;
+    public double receivingYardsPoints;
+
+    public double fantasyReceptionConstant = 1;
+    public double fantasyScrimmageYardsConstant= .1;
+    public double fantasyPassYardsConstant=.04;
 
     public Player() {
 
@@ -322,6 +333,61 @@ public class Player {
         this.patAttempts = patAttempts;
     }
 
+    public double getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(double gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public double getTotalFantasyPoints() {
+        return totalFantasyPoints;
+    }
+
+    public void setTotalFantasyPoints(double totalFantasyPoints) {
+        this.totalFantasyPoints = totalFantasyPoints;
+    }
+
+    public double getPassingPoints() {
+        return passingPoints;
+    }
+
+    public void setPassingPoints(double passingPoints) {
+        this.passingPoints = passingPoints;
+    }
+
+    public double getRushingYardPoints() {
+        return rushingYardPoints;
+    }
+
+    public void setRushingYardPoints(double rushingYardPoints) {
+        this.rushingYardPoints = rushingYardPoints;
+    }
+
+    public double getTotalReceivingPoints() {
+        return totalReceivingPoints;
+    }
+
+    public void setTotalReceivingPoints(double totalReceivingPoints) {
+        this.totalReceivingPoints = totalReceivingPoints;
+    }
+
+    public double getReceptionPoints() {
+        return receptionPoints;
+    }
+
+    public void setReceptionPoints(double receptionPoints) {
+        this.receptionPoints = receptionPoints;
+    }
+
+    public double getReceivingYardsPoints() {
+        return receivingYardsPoints;
+    }
+
+    public void setReceivingYardsPoints(double receivingYardsPoints) {
+        this.receivingYardsPoints = receivingYardsPoints;
+    }
 
     public void printQBAttributes() {
 

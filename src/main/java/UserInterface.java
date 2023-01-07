@@ -9,6 +9,7 @@ public class UserInterface {
 
     public static void menu() throws IOException {
 
+
         System.out.println("\nWelcome to Football Stats Analysis");
 
         System.out.println("by Maseel Shah\n");

@@ -42,22 +42,28 @@ public static int seasonYear=0;
             String readQBStats = e.select("td.center").text();
             Double[] qbStats = extractQBData(readQBStats);
 
-            qbList.add(new Player(playerName));
+            int index=0;
 
-            qbList.get(playerIteration).setPosition("QB");
-            qbList.get(playerIteration).setCompletions(qbStats[0]);
-            qbList.get(playerIteration).setPassAttempts(qbStats[1]);
-            qbList.get(playerIteration).setCompletionPercent(qbStats[2]);
-            qbList.get(playerIteration).setPassingYards(qbStats[3]);
-            qbList.get(playerIteration).setPassYardsPerAttempt(qbStats[4]);
-            qbList.get(playerIteration).setTouchdownPasses(qbStats[5]);
-            qbList.get(playerIteration).setInterceptions(qbStats[6]);
-            qbList.get(playerIteration).setSacks(qbStats[7]);
-            qbList.get(playerIteration).setRushAttempts(qbStats[8]);
-            qbList.get(playerIteration).setRushYards(qbStats[9]);
-            qbList.get(playerIteration).setRushingTouchdowns(qbStats[10]);
+            Player temp=new Player(playerName);
+            temp.setPosition("QB");
+            temp.setCompletions(qbStats[index++]);
+            temp.setPassAttempts(qbStats[index++]);
+            temp.setCompletionPercent(qbStats[index++]);
+            temp.setPassingYards(qbStats[index++]);
+            temp.setPassYardsPerAttempt(qbStats[index++]);
+            temp.setTouchdownPasses(qbStats[index++]);
+            temp.setInterceptions(qbStats[index++]);
+            temp.setSacks(qbStats[index++]);
+            temp.setRushAttempts(qbStats[index++]);
+            temp.setRushYards(qbStats[index++]);
+            temp.setRushingTouchdowns(qbStats[index++]);
 
-            playerIteration++;
+            temp.setGamesPlayed(qbStats[index++]);
+
+           // System.out.println(temp.getGamesPlayed()+"thats in the list");
+
+            qbList.add(temp);
+           // playerIteration++;
 
         }
 
@@ -74,7 +80,7 @@ public static int seasonYear=0;
     public static Double[] extractQBData(String dataLine) {
 
         String[] dataSep = dataLine.split(" ");
-        Double[] cleanData = new Double[11];
+        Double[] cleanData = new Double[12];
 
         for (int i = 0; i < 11; i++) {
             String tempNum = dataSep[i];
@@ -86,7 +92,10 @@ public static int seasonYear=0;
             //System.out.print(cleanData[i]+" ");
         }
 
-        //  System.out.println("");
+        cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
+
+       //System.out.println("games played "+ cleanData[cleanData.length-1] );
+
 
         return cleanData;
     }
@@ -743,6 +752,9 @@ public static int seasonYear=0;
         qbcell = qbRow.createCell(countQBHeaderCell++);
         qbcell.setCellValue("Rushing Touchdowns");
 
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Games Played");
+
         for (Player p : list) {
 
             qbRow = qbSpreadsheet.createRow(rowid++);
@@ -784,6 +796,9 @@ public static int seasonYear=0;
 
             qbcell = qbRow.createCell(cellid++);
             qbcell.setCellValue(p.getRushingTouchdowns());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getGamesPlayed());
 
 
         }
