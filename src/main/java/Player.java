@@ -410,6 +410,7 @@ public class Player {
 
     public void printRunningBackAttributes() {
 
+        System.out.println("Running Back Attributes:");
         System.out.println(getName());
         System.out.print("Position: " + getPosition() + " ");
         System.out.print("Rushing Attempts: " + getRushAttempts() + " ");
@@ -428,6 +429,7 @@ public class Player {
 
     public void printReceiverAttributes(){
 
+
         System.out.println(getName());
         System.out.print("Position: " + getPosition() + " ");
         System.out.print("Receptions: " + getReceptions() + " ");
@@ -444,8 +446,8 @@ public class Player {
     }
 
     public void printKickerAttributes(){
-        System.out.println(getName());
 
+        System.out.println(getName());
         System.out.print("Field Goals Made: "+ getFieldGoalsMade()+" ");
         System.out.print("Field Goal Attempts: "+ getFgAttempts()+" ");
         System.out.print("Field Goal Percent: "+ getFgPercent()+" ");

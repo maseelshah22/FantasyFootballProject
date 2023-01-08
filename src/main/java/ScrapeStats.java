@@ -57,21 +57,14 @@ public static int seasonYear=0;
             temp.setRushAttempts(qbStats[index++]);
             temp.setRushYards(qbStats[index++]);
             temp.setRushingTouchdowns(qbStats[index++]);
-
             temp.setGamesPlayed(qbStats[index++]);
 
-           // System.out.println(temp.getGamesPlayed()+"thats in the list");
 
             qbList.add(temp);
 
         }
 
-//        for (Player p : qbList) {
-//
-//            // System.out.println(p.getName() + " ");
-//            p.printQBAttributes();
-//
-//        }
+
         return qbList;
     }
 
