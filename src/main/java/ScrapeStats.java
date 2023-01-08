@@ -33,8 +33,8 @@ public static int seasonYear=0;
     }
 
     public static ArrayList<Player> createQBList(Elements body) {
+
         //create QB player and will add him to list
-        int playerIteration = 0;
         ArrayList<Player> qbList = new ArrayList<>();
         for (Element e : body.select("tr")) {
 
@@ -63,7 +63,6 @@ public static int seasonYear=0;
            // System.out.println(temp.getGamesPlayed()+"thats in the list");
 
             qbList.add(temp);
-           // playerIteration++;
 
         }
 
@@ -102,7 +101,6 @@ public static int seasonYear=0;
 
 
     public static ArrayList<Player> createRunningBackList(Elements body) {
-        int playerIteration = 0;
         ArrayList<Player> rbList = new ArrayList<>();
 
         for (Element e : body.select("tr")) {
@@ -111,33 +109,30 @@ public static int seasonYear=0;
             String readRBStats = e.select("td.center").text();
             Double[] rbStats = extractRunningBackData(readRBStats);
 
-            rbList.add(new Player(playerName));
-            rbList.get(playerIteration).setPosition("RB");
+            int index =0;
+            Player temp=new Player(playerName);
 
-            rbList.get(playerIteration).setRushAttempts(rbStats[0]);
-            rbList.get(playerIteration).setRushYards(rbStats[1]);
-            rbList.get(playerIteration).setRushYardsPerAttempt(rbStats[2]);
-            rbList.get(playerIteration).setLongestRush(rbStats[3]);
-            rbList.get(playerIteration).setTwentyPlusRushes(rbStats[4]);
-            rbList.get(playerIteration).setRushingTouchdowns(rbStats[5]);
-            rbList.get(playerIteration).setReceptions(rbStats[6]);
-            rbList.get(playerIteration).setTargets(rbStats[7]);
-            rbList.get(playerIteration).setRecYards(rbStats[8]);
-            rbList.get(playerIteration).setRecYardsPerCatch(rbStats[9]);
-            rbList.get(playerIteration).setRecTouchdowns(rbStats[10]);
+            //rbList.add(new Player(playerName));
+            temp.setPosition("RB");
 
-            playerIteration++;
+            temp.setRushAttempts(rbStats[index++]);
+            temp.setRushYards(rbStats[index++]);
+            temp.setRushYardsPerAttempt(rbStats[index++]);
+            temp.setLongestRush(rbStats[index++]);
+            temp.setTwentyPlusRushes(rbStats[index++]);
+            temp.setRushingTouchdowns(rbStats[index++]);
+            temp.setReceptions(rbStats[index++]);
+            temp.setTargets(rbStats[index++]);
+            temp.setRecYards(rbStats[index++]);
+            temp.setRecYardsPerCatch(rbStats[index++]);
+            temp.setRecTouchdowns(rbStats[index++]);
+            temp.setGamesPlayed(rbStats[index++]);
+
+            rbList.add(temp);
 
 
         }
 
-        //print stats
-//        for (Player p : rbList) {
-//
-//            // System.out.println(p.getName() + " ");
-//            p.printRunningBackAttributes();
-//
-//        }
         return rbList;
 
 
@@ -147,7 +142,7 @@ public static int seasonYear=0;
     public static Double[] extractRunningBackData(String dataLine) {
 
         String[] dataSep = dataLine.split(" ");
-        Double[] cleanData = new Double[11];
+        Double[] cleanData = new Double[12];
 
         for (int i = 0; i < 11; i++) {
             String tempNum = dataSep[i];
@@ -158,6 +153,8 @@ public static int seasonYear=0;
             cleanData[i] = Double.parseDouble(newNum);
             //System.out.print(cleanData[i]+" ");
         }
+
+        cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
 
         //  System.out.println("");
 
@@ -174,30 +171,25 @@ public static int seasonYear=0;
             Double[] wrStats = extractReceiverData(readWRStats);
 
             Player temp = new Player(playerName);
-            //wrList.add(new Player(playerName));
             temp.setPosition("WR");
 
-            temp.setReceptions(wrStats[0]);
-            temp.setTargets(wrStats[1]);
-            temp.setRecYards(wrStats[2]);
-            temp.setRecYardsPerCatch(wrStats[3]);
-            temp.setLongestReception(wrStats[4]);
-            temp.setTwentyPlusReceptions(wrStats[5]);
-            temp.setRecTouchdowns(wrStats[6]);
-            temp.setRushAttempts(wrStats[7]);
-            temp.setRushYards(wrStats[8]);
-            temp.setRushingTouchdowns(wrStats[9]);
+            int index=0;
+
+            temp.setReceptions(wrStats[index++]);
+            temp.setTargets(wrStats[index++]);
+            temp.setRecYards(wrStats[index++]);
+            temp.setRecYardsPerCatch(wrStats[index++]);
+            temp.setLongestReception(wrStats[index++]);
+            temp.setTwentyPlusReceptions(wrStats[index++]);
+            temp.setRecTouchdowns(wrStats[index++]);
+            temp.setRushAttempts(wrStats[index++]);
+            temp.setRushYards(wrStats[index++]);
+            temp.setRushingTouchdowns(wrStats[index++]);
+            temp.setGamesPlayed(wrStats[index++]);
 
             wrList.add(temp);
 
         }
-
-//        for (Player p : wrList) {
-//
-//            // System.out.println(p.getName() + " ");
-//            p.printReceiverAttributes();
-//
-//        }
 
         return wrList;
 
@@ -215,10 +207,9 @@ public static int seasonYear=0;
                 newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
             }
             cleanData[i] = Double.parseDouble(newNum);
-            //System.out.print(cleanData[i]+" ");
         }
 
-        //  System.out.println("");
+        cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
 
         return cleanData;
     }
@@ -234,27 +225,23 @@ public static int seasonYear=0;
             Player temp = new Player(playerName);
             temp.setPosition("TE");
 
-            temp.setReceptions(teStats[0]);
-            temp.setTargets(teStats[1]);
-            temp.setRecYards(teStats[2]);
-            temp.setRecYardsPerCatch(teStats[3]);
-            temp.setLongestReception(teStats[4]);
-            temp.setTwentyPlusReceptions(teStats[5]);
-            temp.setRecTouchdowns(teStats[6]);
-            temp.setRushAttempts(teStats[7]);
-            temp.setRushYards(teStats[8]);
-            temp.setRushingTouchdowns(teStats[9]);
+            int index=0;
+
+            temp.setReceptions(teStats[index++]);
+            temp.setTargets(teStats[index++]);
+            temp.setRecYards(teStats[index++]);
+            temp.setRecYardsPerCatch(teStats[index++]);
+            temp.setLongestReception(teStats[index++]);
+            temp.setTwentyPlusReceptions(teStats[index++]);
+            temp.setRecTouchdowns(teStats[index++]);
+            temp.setRushAttempts(teStats[index++]);
+            temp.setRushYards(teStats[index++]);
+            temp.setRushingTouchdowns(teStats[index++]);
+            temp.setGamesPlayed(teStats[index++]);
 
             teList.add(temp);
 
         }
-
-//        for (Player p : teList) {
-//
-//            // System.out.println(p.getName() + " ");
-//            p.printReceiverAttributes();
-//
-//        }
 
         return teList;
 
@@ -272,35 +259,32 @@ public static int seasonYear=0;
             Player temp = new Player(playerName);
             temp.setPosition("K");
 
-            temp.setFieldGoalsMade(kickerStats[0]);
-            temp.setFgAttempts(kickerStats[1]);
-            temp.setFgPercent(kickerStats[2]);
-            temp.setLongestKickMade(kickerStats[3]);
-            temp.setUnder20Kicks(kickerStats[4]);
-            temp.setUnder30Kicks(kickerStats[5]);
-            temp.setUnder40Kicks(kickerStats[6]);
-            temp.setUnder50Kicks(kickerStats[7]);
-            temp.setOver50Kicks(kickerStats[8]);
-            temp.setExtraPointsMade(kickerStats[9]);
-            temp.setPatAttempts(kickerStats[10]);
+            int index=0;
+
+            temp.setFieldGoalsMade(kickerStats[index++]);
+            temp.setFgAttempts(kickerStats[index++]);
+            temp.setFgPercent(kickerStats[index++]);
+            temp.setLongestKickMade(kickerStats[index++]);
+            temp.setUnder20Kicks(kickerStats[index++]);
+            temp.setUnder30Kicks(kickerStats[index++]);
+            temp.setUnder40Kicks(kickerStats[index++]);
+            temp.setUnder50Kicks(kickerStats[index++]);
+            temp.setOver50Kicks(kickerStats[index++]);
+            temp.setExtraPointsMade(kickerStats[index++]);
+            temp.setPatAttempts(kickerStats[index++]);
+            temp.setGamesPlayed(kickerStats[index++]);
 
             kickerList.add(temp);
 
         }
 
-
-//        for (Player p : kickerList) {
-//
-//            // System.out.println(p.getName() + " ");
-//            p.printKickerAttributes();
-//        }
         return kickerList;
 
     }
 
     public static Double[] extractKickerData(String dataLine) {
         String[] dataSep = dataLine.split(" ");
-        Double[] cleanData = new Double[11];
+        Double[] cleanData = new Double[12];
 
         for (int i = 0; i < 11; i++) {
             String tempNum = dataSep[i];
@@ -309,10 +293,9 @@ public static int seasonYear=0;
                 newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
             }
             cleanData[i] = Double.parseDouble(newNum);
-            //System.out.print(cleanData[i]+" ");
         }
 
-        //  System.out.println("");
+        cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
 
         return cleanData;
     }
@@ -559,6 +542,9 @@ public static int seasonYear=0;
         kCell = kRow.createCell(countKHeaderCell++);
         kCell.setCellValue("Extra Point Attempts");
 
+        kCell = kRow.createCell(countKHeaderCell++);
+        kCell.setCellValue("Games Played");
+
         for (Player p : list) {
 
             kRow = kickerSpreadsheet.createRow(rowid++);
@@ -601,6 +587,8 @@ public static int seasonYear=0;
             kCell = kRow.createCell(cellid++);
             kCell.setCellValue(p.getPatAttempts());
 
+            kCell = kRow.createCell(cellid++);
+            kCell.setCellValue(p.getGamesPlayed());
 
         }
     }
@@ -655,6 +643,9 @@ public static int seasonYear=0;
         wrcell = wrRow.createCell(countWRHeaderCell++);
         wrcell.setCellValue("Rushing Touchdowns");
 
+        wrcell = wrRow.createCell(countWRHeaderCell++);
+        wrcell.setCellValue("Games Played");
+
 
         for (Player p : list) {
 
@@ -694,6 +685,9 @@ public static int seasonYear=0;
 
             wrcell = wrRow.createCell(cellid++);
             wrcell.setCellValue(p.getRushingTouchdowns());
+
+            wrcell = wrRow.createCell(cellid++);
+            wrcell.setCellValue(p.getGamesPlayed());
 
         }
     }
@@ -856,6 +850,9 @@ public static int seasonYear=0;
         rbcell = rbRow.createCell(countRBHeaderCell++);
         rbcell.setCellValue("Receiving Touchdowns");
 
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Games Played");
+
 
         for (Player p : list) {
 
@@ -898,6 +895,9 @@ public static int seasonYear=0;
 
             rbcell = rbRow.createCell(cellid++);
             rbcell.setCellValue(p.getRecTouchdowns());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getGamesPlayed());
 
         }
 
