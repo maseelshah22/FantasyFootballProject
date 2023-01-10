@@ -43,16 +43,22 @@ public class Player {
 
     public double gamesPlayed;
     public double totalFantasyPoints;
-    public double passingPointsFantasy;
+    public double totalPassingPointsFantasy;
+    public double passingYardPointsFantasy;
+    public double passingTouchdownPointsFantasy;
+    public double pointsLostFromFumblesFantasy;
+    public double pointsLostFromINTSFantasy;
+    public double totalTurnoverPointsLostFantasy;
     public double rushingYardPointsFantasy;
+
+    double rushTDPointFantasy;
     public double totalReceivingPointsFantasy;
     public double receptionPointsFantasy;
     public double receivingYardsPointsFantasy;
-    public double tdIntRatio;
 
-    public double fantasyReceptionConstant = 1;
-    public double fantasyScrimmageYardsConstant= .1;
-    public double fantasyPassYardsConstant=.04;
+    public double fantasyPointsPerGame;
+    public double tdIntRatio;
+    public double fumblesLost;
 
     public Player() {
 
@@ -350,12 +356,12 @@ public class Player {
         this.totalFantasyPoints = totalFantasyPoints;
     }
 
-    public double getPassingPointsFantasy() {
-        return passingPointsFantasy;
+    public double getTotalPassingPointsFantasy() {
+        return totalPassingPointsFantasy;
     }
 
-    public void setPassingPointsFantasy(double passingPointsFantasy) {
-        this.passingPointsFantasy = passingPointsFantasy;
+    public void setTotalPassingPointsFantasy(double totalPassingPointsFantasy) {
+        this.totalPassingPointsFantasy = totalPassingPointsFantasy;
     }
 
     public double getRushingYardPointsFantasy() {
@@ -390,12 +396,76 @@ public class Player {
         this.receivingYardsPointsFantasy = receivingYardsPointsFantasy;
     }
 
+    public double getPassingYardPointsFantasy() {
+        return passingYardPointsFantasy;
+    }
+
+    public void setPassingYardPointsFantasy(double passingYardPointsFantasy) {
+        this.passingYardPointsFantasy = passingYardPointsFantasy;
+    }
+
+    public double getPassingTouchdownPointsFantasy() {
+        return passingTouchdownPointsFantasy;
+    }
+
+    public void setPassingTouchdownPointsFantasy(double passingTouchdownPointsFantasy) {
+        this.passingTouchdownPointsFantasy = passingTouchdownPointsFantasy;
+    }
+
+    public double getFantasyPointsPerGame() {
+        return fantasyPointsPerGame;
+    }
+
+    public void setFantasyPointsPerGame(double fantasyPointsPerGame) {
+        this.fantasyPointsPerGame = fantasyPointsPerGame;
+    }
+
+    public double getPointsLostFromFumblesFantasy() {
+        return pointsLostFromFumblesFantasy;
+    }
+
+    public double getRushTDPointFantasy() {
+        return rushTDPointFantasy;
+    }
+
+    public void setRushTDPointFantasy(double rushTDPointFantasy) {
+        this.rushTDPointFantasy = rushTDPointFantasy;
+    }
+
+    public void setPointsLostFromFumblesFantasy(double pointsLostFromFumblesFantasy) {
+        this.pointsLostFromFumblesFantasy = pointsLostFromFumblesFantasy;
+    }
+
+    public double getPointsLostFromINTSFantasy() {
+        return pointsLostFromINTSFantasy;
+    }
+
+    public void setPointsLostFromINTSFantasy(double pointsLostFromINTSFantasy) {
+        this.pointsLostFromINTSFantasy = pointsLostFromINTSFantasy;
+    }
+
+    public double getTotalTurnoverPointsLostFantasy() {
+        return totalTurnoverPointsLostFantasy;
+    }
+
+    public void setTotalTurnoverPointsLostFantasy(double totalTurnoverPointsLostFantasy) {
+        this.totalTurnoverPointsLostFantasy = totalTurnoverPointsLostFantasy;
+    }
+
     public double getTdIntRatio() {
         return tdIntRatio;
     }
 
     public void setTdIntRatio(double tdIntRatio) {
         this.tdIntRatio = tdIntRatio;
+    }
+
+    public double getFumblesLost() {
+        return fumblesLost;
+    }
+
+    public void setFumblesLost(double fumblesLost) {
+        this.fumblesLost = fumblesLost;
     }
 
     public void printQBAttributes() {
