@@ -18,7 +18,7 @@ public class UserInterface {
                 "of the season and position of\nyour choosing and export the data in an excel file " +
                 "for your analysis.\n");
 
-        System.out.println("Along with season stats, this program will give you analytical data for each players' previous fantasy seasons.");
+        System.out.println("Along with season stats, this program can give you analytical data for each players' PPR Fantasy Football Peformance.");
         System.out.println("This data can be used to compare players and make decisions regarding PPR Fantasy Football\n");
 
         ScrapeStats stats= new ScrapeStats();

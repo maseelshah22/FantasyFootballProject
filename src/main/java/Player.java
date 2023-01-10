@@ -43,11 +43,12 @@ public class Player {
 
     public double gamesPlayed;
     public double totalFantasyPoints;
-    public double passingPoints;
-    public double rushingYardPoints;
-    public double totalReceivingPoints;
-    public double receptionPoints;
-    public double receivingYardsPoints;
+    public double passingPointsFantasy;
+    public double rushingYardPointsFantasy;
+    public double totalReceivingPointsFantasy;
+    public double receptionPointsFantasy;
+    public double receivingYardsPointsFantasy;
+    public double tdIntRatio;
 
     public double fantasyReceptionConstant = 1;
     public double fantasyScrimmageYardsConstant= .1;
@@ -349,44 +350,52 @@ public class Player {
         this.totalFantasyPoints = totalFantasyPoints;
     }
 
-    public double getPassingPoints() {
-        return passingPoints;
+    public double getPassingPointsFantasy() {
+        return passingPointsFantasy;
     }
 
-    public void setPassingPoints(double passingPoints) {
-        this.passingPoints = passingPoints;
+    public void setPassingPointsFantasy(double passingPointsFantasy) {
+        this.passingPointsFantasy = passingPointsFantasy;
     }
 
-    public double getRushingYardPoints() {
-        return rushingYardPoints;
+    public double getRushingYardPointsFantasy() {
+        return rushingYardPointsFantasy;
     }
 
-    public void setRushingYardPoints(double rushingYardPoints) {
-        this.rushingYardPoints = rushingYardPoints;
+    public void setRushingYardPointsFantasy(double rushingYardPointsFantasy) {
+        this.rushingYardPointsFantasy = rushingYardPointsFantasy;
     }
 
-    public double getTotalReceivingPoints() {
-        return totalReceivingPoints;
+    public double getTotalReceivingPointsFantasy() {
+        return totalReceivingPointsFantasy;
     }
 
-    public void setTotalReceivingPoints(double totalReceivingPoints) {
-        this.totalReceivingPoints = totalReceivingPoints;
+    public void setTotalReceivingPointsFantasy(double totalReceivingPointsFantasy) {
+        this.totalReceivingPointsFantasy = totalReceivingPointsFantasy;
     }
 
-    public double getReceptionPoints() {
-        return receptionPoints;
+    public double getReceptionPointsFantasy() {
+        return receptionPointsFantasy;
     }
 
-    public void setReceptionPoints(double receptionPoints) {
-        this.receptionPoints = receptionPoints;
+    public void setReceptionPointsFantasy(double receptionPointsFantasy) {
+        this.receptionPointsFantasy = receptionPointsFantasy;
     }
 
-    public double getReceivingYardsPoints() {
-        return receivingYardsPoints;
+    public double getReceivingYardsPointsFantasy() {
+        return receivingYardsPointsFantasy;
     }
 
-    public void setReceivingYardsPoints(double receivingYardsPoints) {
-        this.receivingYardsPoints = receivingYardsPoints;
+    public void setReceivingYardsPointsFantasy(double receivingYardsPointsFantasy) {
+        this.receivingYardsPointsFantasy = receivingYardsPointsFantasy;
+    }
+
+    public double getTdIntRatio() {
+        return tdIntRatio;
+    }
+
+    public void setTdIntRatio(double tdIntRatio) {
+        this.tdIntRatio = tdIntRatio;
     }
 
     public void printQBAttributes() {

@@ -354,6 +354,22 @@ public static int seasonYear=0;
 
         }
 
+//        System.out.println("Would you like PPR Fantasy Football Data to be included?");
+//        System.out.println("Enter 1 For YES");
+//        System.out.println("Enter 0 For NO");
+//
+//        int fantasyDataOption = s.nextInt();
+//
+//        while (fantasyDataOption!=1 && fantasyDataOption!=0){
+//
+//            System.out.println("Invalid Option Selected. Please Try Again.");
+//            System.out.println("Would you like PPR Fantasy Football Data to be included?");
+//            System.out.println("Enter 1 For YES");
+//            System.out.println("Enter 0 For NO");
+//
+//            fantasyDataOption = s.nextInt();
+//        }
+
 
         //url = urlGetter(seasonYear,position);
         //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
@@ -364,9 +380,9 @@ public static int seasonYear=0;
             case "qb":
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
-                qbList = createQBList(b);
+                qbList = createQBList(b); //pass fantasy option?
                 option = 1;
-                ExportExcelSheet(option, qbList);
+                ExportExcelSheet(option, qbList); //pass fantasy option?
 
                 break;
             case "rb":
@@ -428,7 +444,7 @@ public static int seasonYear=0;
 
                 option = 6;
 
-                ExportAllSheets(qbList,rbList,wrList,teList,kList);
+                ExportAllSheets(qbList,rbList,wrList,teList,kList); //pass fantasy option?
 
                 break;
         }
@@ -442,7 +458,7 @@ public static int seasonYear=0;
         String fileName="";
 
         if (option == 1) {
-            makeQBSheet(list, workbook);
+            makeQBSheet(list, workbook); //pass fantasy option?
             fileName="QB_Data_"+ seasonYear+"_NFL"+"_Season";
 
         } else if (option == 2) {
@@ -742,6 +758,8 @@ public static int seasonYear=0;
         qbcell = qbRow.createCell(countQBHeaderCell++);
         qbcell.setCellValue("Games Played");
 
+        //add if statment here for fantasy point headers
+
         for (Player p : list) {
 
             qbRow = qbSpreadsheet.createRow(rowid++);
@@ -787,6 +805,7 @@ public static int seasonYear=0;
             qbcell = qbRow.createCell(cellid++);
             qbcell.setCellValue(p.getGamesPlayed());
 
+            //add if statement here for adding fantasy points
 
         }
 
