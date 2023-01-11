@@ -90,9 +90,9 @@ public static int seasonYear=0;
             temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
 
             double turnoverFantasy= pointsLostDueToFumble+pointsLostDueToINT;
-            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy);
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
 
-            double totFantasyPoints= passYardFantasyPoints+rushYardFantasyPoints+passTouchdownsFantasy+rushTouchdownFantasy+
+            double totFantasyPoints= passYardFantasyPoints+rushYardFantasyPoints+passTouchdownsFantasy+rushTouchdownFantasy
                                     +turnoverFantasy;
             temp.setTotalFantasyPoints(totFantasyPoints);
 
@@ -160,6 +160,36 @@ public static int seasonYear=0;
             temp.setRecTouchdowns(rbStats[index++]);
             temp.setFumblesLost(rbStats[index++]);
             temp.setGamesPlayed(rbStats[index++]);
+
+            //fantasy
+            double rushYardFantasyPoints= fantasyScrimmageYardsConstant* temp.getRushYards();
+            temp.setRushingYardPointsFantasy(rushYardFantasyPoints);
+
+            double rushTouchdownFantasy= fantasyRushTDConstant*temp.getRushingTouchdowns();
+            temp.setRushTDPointFantasy(rushTouchdownFantasy);
+
+            double pointsLostDueToFumble= fantasyTurnoverConstant*temp.getFumblesLost();
+            temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
+
+            double recYardFantasyPoints = fantasyScrimmageYardsConstant*temp.getRecYards();
+            temp.setReceivingYardsPointsFantasy(recYardFantasyPoints);
+
+            double receptionFantasyPoints= temp.getReceptions();
+            temp.setReceptionPointsFantasy(receptionFantasyPoints);
+
+            double receivingTDFantasyPoints= fantasyRushTDConstant* temp.getRecTouchdowns();
+            temp.setReceivingTDFantasyPoints(receivingTDFantasyPoints);
+
+            double turnoverFantasy= pointsLostDueToFumble;
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
+
+            double totFantasyPoints= rushYardFantasyPoints+rushTouchdownFantasy+
+                    recYardFantasyPoints+receptionFantasyPoints+receivingTDFantasyPoints+
+                    +turnoverFantasy;
+            temp.setTotalFantasyPoints(totFantasyPoints);
+
+            double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
+            temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
             rbList.add(temp);
 
@@ -401,17 +431,19 @@ public static int seasonYear=0;
         System.out.println("Enter 1 For YES");
         System.out.println("Enter 0 For NO");
 
-        int fantasyDataOption = s.nextInt();
+        String fantasyDataOptionString = s.next();
 
-        while (fantasyDataOption!=1 && fantasyDataOption!=0){
+        while (!fantasyDataOptionString.equals("1")&& !fantasyDataOptionString.equals("0")){
 
             System.out.println("Invalid Option Selected. Please Try Again.");
             System.out.println("Would you like PPR Fantasy Football Data to be included?");
             System.out.println("Enter 1 For YES");
             System.out.println("Enter 0 For NO");
 
-            fantasyDataOption = s.nextInt();
+            fantasyDataOptionString = s.next();
         }
+
+        int fantasyDataOption = Integer.parseInt(fantasyDataOptionString);
 
 
         //url = urlGetter(seasonYear,position);
@@ -503,7 +535,7 @@ public static int seasonYear=0;
             fileName="QB_Data_"+ seasonYear+"_NFL"+"_Season";
 
         } else if (option == 2) {
-            makeRBSheet(list, workbook);
+            makeRBSheet(list, workbook,fantasyOption);
             fileName="RB_Data_" + seasonYear +"_NFL" +"_Season";
         } else if (option == 3 || option == 4) {
 
@@ -911,7 +943,7 @@ public static int seasonYear=0;
 
     }
 
-    public static void makeRBSheet(ArrayList<Player> list, XSSFWorkbook workbook) {
+    public static void makeRBSheet(ArrayList<Player> list, XSSFWorkbook workbook, int fantasyOption) {
         int rowid;
 
         XSSFSheet rbSpreadsheet = workbook.createSheet("Running_Back_Data");
@@ -968,6 +1000,35 @@ public static int seasonYear=0;
         rbcell = rbRow.createCell(countRBHeaderCell++);
         rbcell.setCellValue("Games Played");
 
+        if(fantasyOption==1){
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Total Fantasy Points");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points From Rushing Yards");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points From Rushing Touchdowns");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points From Receiving Yards");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points From Receiving Touchdowns");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points From Receptions");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points Lost From Turnovers");
+
+
+        }
+
 
         for (Player p : list) {
 
@@ -1017,6 +1078,34 @@ public static int seasonYear=0;
             rbcell = rbRow.createCell(cellid++);
             rbcell.setCellValue(p.getGamesPlayed());
 
+            if(fantasyOption==1){
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getTotalFantasyPoints());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyPointsPerGame());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushingYardPointsFantasy());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getRushTDPointFantasy());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getReceivingYardsPointsFantasy());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getReceivingTDFantasyPoints());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getReceptionPointsFantasy());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getTotalTurnoverPointsLostFantasy());
+
+            }
+
         }
 
     }
@@ -1028,7 +1117,7 @@ public static int seasonYear=0;
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         makeQBSheet(qbList,workbook,fantasyDataOption);
-        makeRBSheet(rbList,workbook);
+        makeRBSheet(rbList,workbook,fantasyDataOption);
         makeReceiverSheet(3,wrList,workbook);
         makeReceiverSheet(4,teList,workbook);
         makeKickerSheet(kList,workbook);

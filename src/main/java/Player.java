@@ -60,6 +60,8 @@ public class Player {
     public double tdIntRatio;
     public double fumblesLost;
 
+    public double receivingTDFantasyPoints;
+
     public Player() {
 
     }
@@ -466,6 +468,14 @@ public class Player {
 
     public void setFumblesLost(double fumblesLost) {
         this.fumblesLost = fumblesLost;
+    }
+
+    public double getReceivingTDFantasyPoints() {
+        return receivingTDFantasyPoints;
+    }
+
+    public void setReceivingTDFantasyPoints(double receivingTDFantasyPoints) {
+        this.receivingTDFantasyPoints = receivingTDFantasyPoints;
     }
 
     public void printQBAttributes() {
