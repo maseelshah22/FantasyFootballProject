@@ -59,8 +59,14 @@ public class Player {
     public double fantasyPointsPerGame;
     public double tdIntRatio;
     public double fumblesLost;
-
     public double receivingTDFantasyPoints;
+
+    public double shortFGFantasyPoints;
+    public double fantasy40yardFgPoints;
+    public double fantasy50yardFgPoints;
+    public double extraPointFantasy;
+    public double missedFgFantasyPoints;
+
 
     public Player() {
 
@@ -476,6 +482,46 @@ public class Player {
 
     public void setReceivingTDFantasyPoints(double receivingTDFantasyPoints) {
         this.receivingTDFantasyPoints = receivingTDFantasyPoints;
+    }
+
+    public double getShortFGFantasyPoints() {
+        return shortFGFantasyPoints;
+    }
+
+    public void setShortFGFantasyPoints(double shortFGFantasyPoints) {
+        this.shortFGFantasyPoints = shortFGFantasyPoints;
+    }
+
+    public double getFantasy40yardFgPoints() {
+        return fantasy40yardFgPoints;
+    }
+
+    public void setFantasy40yardFgPoints(double fantasy40yardFgPoints) {
+        this.fantasy40yardFgPoints = fantasy40yardFgPoints;
+    }
+
+    public double getFantasy50yardFgPoints() {
+        return fantasy50yardFgPoints;
+    }
+
+    public void setFantasy50yardFgPoints(double fantasy50yardFgPoints) {
+        this.fantasy50yardFgPoints = fantasy50yardFgPoints;
+    }
+
+    public double getExtraPointFantasy() {
+        return extraPointFantasy;
+    }
+
+    public void setExtraPointFantasy(double extraPointFantasy) {
+        this.extraPointFantasy = extraPointFantasy;
+    }
+
+    public double getMissedFgFantasyPoints() {
+        return missedFgFantasyPoints;
+    }
+
+    public void setMissedFgFantasyPoints(double missedFgFantasyPoints) {
+        this.missedFgFantasyPoints = missedFgFantasyPoints;
     }
 
     public void printQBAttributes() {
