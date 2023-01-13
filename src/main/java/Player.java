@@ -67,6 +67,15 @@ public class Player {
     public double extraPointFantasy;
     public double missedFgFantasyPoints;
 
+    public double fantasyPassYardPointsPerGame;
+    public double fantasyPassTDPointsPerGame;
+    public double fantasyRushYardPointsPerGame;
+    public double fantasyRushTDPointsPerGame;
+    public double fantasyTurnoverPointsPerGame;
+    public double fantasyRecYardPointsPerGame;
+    public double receptionsPerGame;
+    public double passYardsPerGame;
+
 
     public Player() {
 
@@ -522,6 +531,70 @@ public class Player {
 
     public void setMissedFgFantasyPoints(double missedFgFantasyPoints) {
         this.missedFgFantasyPoints = missedFgFantasyPoints;
+    }
+
+    public double getFantasyPassYardPointsPerGame() {
+        return fantasyPassYardPointsPerGame;
+    }
+
+    public void setFantasyPassYardPointsPerGame(double fantasyPassYardPointsPerGame) {
+        this.fantasyPassYardPointsPerGame = fantasyPassYardPointsPerGame;
+    }
+
+    public double getFantasyPassTDPointsPerGame() {
+        return fantasyPassTDPointsPerGame;
+    }
+
+    public void setFantasyPassTDPointsPerGame(double fantasyPassTDPointsPerGame) {
+        this.fantasyPassTDPointsPerGame = fantasyPassTDPointsPerGame;
+    }
+
+    public double getFantasyRushYardPointsPerGame() {
+        return fantasyRushYardPointsPerGame;
+    }
+
+    public void setFantasyRushYardPointsPerGame(double fantasyRushYardPointsPerGame) {
+        this.fantasyRushYardPointsPerGame = fantasyRushYardPointsPerGame;
+    }
+
+    public double getFantasyRushTDPointsPerGame() {
+        return fantasyRushTDPointsPerGame;
+    }
+
+    public void setFantasyRushTDPointsPerGame(double fantasyRushTDPointsPerGame) {
+        this.fantasyRushTDPointsPerGame = fantasyRushTDPointsPerGame;
+    }
+
+    public double getFantasyTurnoverPointsPerGame() {
+        return fantasyTurnoverPointsPerGame;
+    }
+
+    public void setFantasyTurnoverPointsPerGame(double fantasyTurnoverPointsPerGame) {
+        this.fantasyTurnoverPointsPerGame = fantasyTurnoverPointsPerGame;
+    }
+
+    public double getFantasyRecYardPointsPerGame() {
+        return fantasyRecYardPointsPerGame;
+    }
+
+    public void setFantasyRecYardPointsPerGame(double fantasyRecYardPointsPerGame) {
+        this.fantasyRecYardPointsPerGame = fantasyRecYardPointsPerGame;
+    }
+
+    public double getReceptionsPerGame() {
+        return receptionsPerGame;
+    }
+
+    public void setReceptionsPerGame(double receptionsPerGame) {
+        this.receptionsPerGame = receptionsPerGame;
+    }
+
+    public double getPassYardsPerGame() {
+        return passYardsPerGame;
+    }
+
+    public void setPassYardsPerGame(double passYardsPerGame) {
+        this.passYardsPerGame = passYardsPerGame;
     }
 
     public void printQBAttributes() {
