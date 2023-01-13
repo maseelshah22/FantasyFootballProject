@@ -567,30 +567,35 @@ public static int seasonYear=0;
                 break;
             case "all":
 
-                System.out.println("Generating Quarterback Data for " + seasonYear + " season...DONE");
+                System.out.print("Generating Quarterback Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, "qb");
                 b = getSiteBody(url);
                 qbList = createQBList(b);
+                System.out.println("DONE");
 
-                System.out.println("Generating Running back Data for " + seasonYear + " season...DONE");
+                System.out.print("Generating Running back Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, "rb");
                 b = getSiteBody(url);
                 rbList = createRunningBackList(b);
+                System.out.println("DONE");
 
-                System.out.println("Generating Wide Receiver Data for " + seasonYear + " season...DONE");
+                System.out.print("Generating Wide Receiver Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, "wr");
                 b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
+                System.out.println("DONE");
 
-                System.out.println("Generating Tight End Data for " + seasonYear + " season...DONE");
+                System.out.print("Generating Tight End Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, "te");
                 b = getSiteBody(url);
                 teList = createTightEndList(b);
+                System.out.println("DONE");
 
-                System.out.println("Generating Kicker Data for " + seasonYear + " season...DONE");
+                System.out.print("Generating Kicker Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, "k");
                 b = getSiteBody(url);
                 kList = createKickerList(b);
+                System.out.println("DONE");
 
                 option = 6;
 
