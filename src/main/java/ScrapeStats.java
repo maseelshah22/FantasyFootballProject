@@ -528,42 +528,50 @@ public static int seasonYear=0;
         switch (position) {
 
             case "qb":
+                System.out.print("Generating Quarterback Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 qbList = createQBList(b); //pass fantasy option?
                 option = 1;
                 ExportExcelSheet(option, qbList,fantasyDataOption); //pass fantasy option?
-
+                System.out.println("DONE");
                 break;
             case "rb":
+                System.out.print("Generating Running back Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 rbList = createRunningBackList(b);
                 option = 2;
                 ExportExcelSheet(option, rbList,fantasyDataOption);
+                System.out.println("DONE");
                 break;
             case "wr":
+                System.out.print("Generating Wide Receiver Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
                 option = 3;
                 ExportExcelSheet(option, wrList,fantasyDataOption);
+                System.out.println("DONE");
                 break;
-
             case "te":
+                System.out.print("Generating Tight End Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 teList = createTightEndList(b);
                 option = 4;
                 ExportExcelSheet(option, teList,fantasyDataOption);
+                System.out.println("DONE");
                 break;
 
             case "k":
+                System.out.print("Generating Kicker Data for " + seasonYear + " season...");
                 url = urlGetter(seasonYear, position);
                 b = getSiteBody(url);
                 kList = createKickerList(b);
                 option = 5;
                 ExportExcelSheet(option, kList,fantasyDataOption);
+                System.out.println("DONE");
                 break;
             case "all":
 
