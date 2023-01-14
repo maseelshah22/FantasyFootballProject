@@ -111,8 +111,23 @@ public static int seasonYear=0;
             double fantasyRunTdPG= temp.getRushTDPointFantasy()/temp.getGamesPlayed();
             temp.setFantasyRushTDPointsPerGame(fantasyRunTdPG);
 
-            double fantastTurnoverPG= temp.getTotalTurnoverPointsLostFantasy()/temp.getGamesPlayed();
-            temp.setFantasyTurnoverPointsPerGame(fantastTurnoverPG);
+            double fantasyTurnoverPG= temp.getTotalTurnoverPointsLostFantasy()/temp.getGamesPlayed();
+            temp.setFantasyTurnoverPointsPerGame(fantasyTurnoverPG);
+
+            double passYardsPerGame= temp.getPassingYards()/temp.getGamesPlayed();
+            temp.setPassYardsPerGame(passYardsPerGame);
+
+            double passingTDperGame= temp.getTouchdownPasses()/temp.getGamesPlayed();
+            temp.setTdPassPerGame(passingTDperGame);
+
+            double rushYardPerGame= temp.getRushYards()/temp.getGamesPlayed();
+            temp.setRushYardPerGame(rushYardPerGame);
+
+            double rushTDPerGame= temp.getRushingTouchdowns()/temp.getGamesPlayed();
+            temp.setRushTDperGame(rushTDPerGame);
+
+            double intPerGame= temp.getInterceptions()/temp.getGamesPlayed();
+            temp.setIntPerGame(intPerGame);
 
             qbList.add(temp);
 
@@ -206,6 +221,33 @@ public static int seasonYear=0;
             double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
+            double rushYardPerGame= temp.getRushYards()/temp.getGamesPlayed();
+            temp.setRushYardPerGame(rushYardPerGame);
+
+            double rushTDPerGame= temp.getRushingTouchdowns()/temp.getGamesPlayed();
+            temp.setRushTDperGame(rushTDPerGame);
+
+            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            temp.setReceptionsPerGame(receptionsPerGame);
+
+            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            temp.setReceivingYardsPerGame(recYardPerGame);
+
+            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            temp.setReceivingTDPerGame(recTDperGame);
+
+            double fantasyRunYardPointsPG=temp.getRushingYardPointsFantasy()/temp.getGamesPlayed();
+            temp.setFantasyRushYardPointsPerGame(fantasyRunYardPointsPG);
+
+            double fantasyRunTdPG= temp.getRushTDPointFantasy()/temp.getGamesPlayed();
+            temp.setFantasyRushTDPointsPerGame(fantasyRunTdPG);
+
+            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
+
+            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            temp.setFantasyRecTdppg(fantasyRecTDppg);
+
             rbList.add(temp);
 
 
@@ -296,6 +338,21 @@ public static int seasonYear=0;
             double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
+            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            temp.setReceptionsPerGame(receptionsPerGame);
+
+            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            temp.setReceivingYardsPerGame(recYardPerGame);
+
+            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            temp.setReceivingTDPerGame(recTDperGame);
+
+            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
+
+            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            temp.setFantasyRecTdppg(fantasyRecTDppg);
+
             wrList.add(temp);
 
         }
@@ -378,6 +435,21 @@ public static int seasonYear=0;
 
             double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
+
+            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            temp.setReceptionsPerGame(receptionsPerGame);
+
+            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            temp.setReceivingYardsPerGame(recYardPerGame);
+
+            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            temp.setReceivingTDPerGame(recTDperGame);
+
+            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
+
+            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            temp.setFantasyRecTdppg(fantasyRecTDppg);
 
             teList.add(temp);
 
@@ -879,6 +951,15 @@ public static int seasonYear=0;
         wrcell.setCellValue("Fumbles Lost");
 
         wrcell = wrRow.createCell(countWRHeaderCell++);
+        wrcell.setCellValue("Receptions Per Game");
+
+        wrcell = wrRow.createCell(countWRHeaderCell++);
+        wrcell.setCellValue("Receiving Yards Per Game");
+
+        wrcell = wrRow.createCell(countWRHeaderCell++);
+        wrcell.setCellValue("Receiving Touchdowns Per Game");
+
+        wrcell = wrRow.createCell(countWRHeaderCell++);
         wrcell.setCellValue("Games Played");
 
         if(fantasyOption==1){
@@ -907,6 +988,14 @@ public static int seasonYear=0;
             wrcell = wrRow.createCell(countWRHeaderCell++);
             wrcell.setCellValue("Fantasy Points Lost From Turnovers");
 
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Fantasy Receiving Yard Points Per Game");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Fantasy Receiving TD Points Per Game");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Fantasy Reception Points Per Game");
 
         }
 
@@ -959,6 +1048,15 @@ public static int seasonYear=0;
             wrcell.setCellValue(p.getFumblesLost());
 
             wrcell = wrRow.createCell(cellid++);
+            wrcell.setCellValue(p.getReceptionsPerGame());
+
+            wrcell = wrRow.createCell(cellid++);
+            wrcell.setCellValue(p.getReceivingYardsPerGame());
+
+            wrcell = wrRow.createCell(cellid++);
+            wrcell.setCellValue(p.getReceivingTDPerGame());
+
+            wrcell = wrRow.createCell(cellid++);
             wrcell.setCellValue(p.getGamesPlayed());
 
             if(fantasyOption==1){
@@ -987,6 +1085,14 @@ public static int seasonYear=0;
                 wrcell = wrRow.createCell(cellid++);
                 wrcell.setCellValue(p.getTotalTurnoverPointsLostFantasy());
 
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getFantasyRecYardPointsPerGame());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getFantasyRecTdppg());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getReceptionsPerGame());
             }
 
 
@@ -1049,6 +1155,21 @@ public static int seasonYear=0;
 
         qbcell = qbRow.createCell(countQBHeaderCell++);
         qbcell.setCellValue("Fumbles Lost");
+
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Passing Yards Per Game");
+
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Passing Touchdowns Per Game");
+
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Rushing Yards Per Game");
+
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Rushing Touchdowns Per Game");
+
+        qbcell = qbRow.createCell(countQBHeaderCell++);
+        qbcell.setCellValue("Interceptions Per Game");
 
         qbcell = qbRow.createCell(countQBHeaderCell++);
         qbcell.setCellValue("Games Played");
@@ -1144,6 +1265,21 @@ public static int seasonYear=0;
 
             qbcell = qbRow.createCell(cellid++);
             qbcell.setCellValue(p.getFumblesLost());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getPassYardsPerGame());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getTdPassPerGame());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getRushYardPerGame());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getRushTDperGame());
+
+            qbcell = qbRow.createCell(cellid++);
+            qbcell.setCellValue(p.getIntPerGame());
 
             qbcell = qbRow.createCell(cellid++);
             qbcell.setCellValue(p.getGamesPlayed());
@@ -1245,15 +1381,27 @@ public static int seasonYear=0;
         rbcell.setCellValue("Fumbles Lost");
 
         rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Rushing Yards Per Game");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Rushing Touchdowns Per Game");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receptions Per Game");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receiving Yards Per Game");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
+        rbcell.setCellValue("Receiving Touchdowns Per Game");
+
+        rbcell = rbRow.createCell(countRBHeaderCell++);
         rbcell.setCellValue("Games Played");
 
         if(fantasyOption==1){
 
             rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Total Fantasy Points");
-
-            rbcell = rbRow.createCell(countRBHeaderCell++);
-            rbcell.setCellValue("Fantasy Points Per Game");
 
             rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Fantasy Points From Rushing Yards");
@@ -1273,6 +1421,23 @@ public static int seasonYear=0;
             rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Fantasy Points Lost From Turnovers");
 
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Rushing Yard Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Rushing Touchdown Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Receiving Yard Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Receiving TD Points Per Game");
+
+            rbcell = rbRow.createCell(countRBHeaderCell++);
+            rbcell.setCellValue("Fantasy Reception Points Per Game");
 
         }
 
@@ -1327,15 +1492,27 @@ public static int seasonYear=0;
             rbcell.setCellValue(p.getFumblesLost());
 
             rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushYardPerGame());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getRushTDperGame());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getReceptionsPerGame());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getReceivingYardsPerGame());
+
+            rbcell = rbRow.createCell(cellid++);
+            rbcell.setCellValue(p.getReceivingTDPerGame());
+
+            rbcell = rbRow.createCell(cellid++);
             rbcell.setCellValue(p.getGamesPlayed());
 
             if(fantasyOption==1){
 
                 rbcell = rbRow.createCell(cellid++);
                 rbcell.setCellValue(p.getTotalFantasyPoints());
-
-                rbcell = rbRow.createCell(cellid++);
-                rbcell.setCellValue(p.getFantasyPointsPerGame());
 
                 rbcell = rbRow.createCell(cellid++);
                 rbcell.setCellValue(p.getRushingYardPointsFantasy());
@@ -1354,6 +1531,24 @@ public static int seasonYear=0;
 
                 rbcell = rbRow.createCell(cellid++);
                 rbcell.setCellValue(p.getTotalTurnoverPointsLostFantasy());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyPointsPerGame());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyRushYardPointsPerGame());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyRushTDPointsPerGame());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyRecYardPointsPerGame());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getFantasyRecTdppg());
+
+                rbcell = rbRow.createCell(cellid++);
+                rbcell.setCellValue(p.getReceptionsPerGame());
 
             }
 

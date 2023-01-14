@@ -75,7 +75,13 @@ public class Player {
     public double fantasyRecYardPointsPerGame;
     public double receptionsPerGame;
     public double passYardsPerGame;
-
+    public double tdPassPerGame;
+    public double rushYardPerGame;
+    public double rushTDperGame;
+    public double intPerGame;
+    public double receivingYardsPerGame;
+    public double receivingTDPerGame;
+    public double fantasyRecTdppg;
 
     public Player() {
 
@@ -595,6 +601,62 @@ public class Player {
 
     public void setPassYardsPerGame(double passYardsPerGame) {
         this.passYardsPerGame = passYardsPerGame;
+    }
+
+    public double getTdPassPerGame() {
+        return tdPassPerGame;
+    }
+
+    public void setTdPassPerGame(double tdPassPerGame) {
+        this.tdPassPerGame = tdPassPerGame;
+    }
+
+    public double getRushTDperGame() {
+        return rushTDperGame;
+    }
+
+    public void setRushTDperGame(double rushTDperGame) {
+        this.rushTDperGame = rushTDperGame;
+    }
+
+    public double getRushYardPerGame() {
+        return rushYardPerGame;
+    }
+
+    public void setRushYardPerGame(double rushYardPerGame) {
+        this.rushYardPerGame = rushYardPerGame;
+    }
+
+    public double getIntPerGame() {
+        return intPerGame;
+    }
+
+    public void setIntPerGame(double intPerGame) {
+        this.intPerGame = intPerGame;
+    }
+
+    public double getReceivingYardsPerGame() {
+        return receivingYardsPerGame;
+    }
+
+    public void setReceivingYardsPerGame(double receivingYardsPerGame) {
+        this.receivingYardsPerGame = receivingYardsPerGame;
+    }
+
+    public double getReceivingTDPerGame() {
+        return receivingTDPerGame;
+    }
+
+    public void setReceivingTDPerGame(double receivingTDPerGame) {
+        this.receivingTDPerGame = receivingTDPerGame;
+    }
+
+    public double getFantasyRecTdppg() {
+        return fantasyRecTdppg;
+    }
+
+    public void setFantasyRecTdppg(double fantasyRecTdppg) {
+        this.fantasyRecTdppg = fantasyRecTdppg;
     }
 
     public void printQBAttributes() {
