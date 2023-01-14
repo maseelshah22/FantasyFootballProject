@@ -1223,6 +1223,8 @@ public static int seasonYear=0;
                 continue;
             }
 
+           // p.printQBAttributes();
+
             qbRow = qbSpreadsheet.createRow(rowid++);
 
             int cellid = 0;
