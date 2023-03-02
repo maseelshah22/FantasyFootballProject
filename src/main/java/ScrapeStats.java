@@ -756,7 +756,7 @@ public static int seasonYear=0;
             String homeDirectory= System.getProperty("user.home");
 
             FileOutputStream out = new FileOutputStream(
-                    new File(homeDirectory+"/"+fileName+".xlsx")); //mac format
+                    new File(homeDirectory+"/Downloads/"+fileName+".xlsx")); //mac format
             workbook.write(out);
             out.close();
         }
