@@ -747,11 +747,31 @@ public static int seasonYear=0;
           //  fileName = scanExcelLoc.next();
        // }
 
-        FileOutputStream out = new FileOutputStream(
-                new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
+        //path of where to export the file
 
-        workbook.write(out);
-        out.close();
+        String os= System.getProperty("os.name");
+
+        if(os.startsWith("Mac")){
+            //"~/Downloads/" doesn't work for some reason no idea way
+            String homeDirectory= System.getProperty("user.home");
+
+            FileOutputStream out = new FileOutputStream(
+                    new File(homeDirectory+"/"+fileName+".xlsx")); //mac format
+            workbook.write(out);
+            out.close();
+        }
+        else if(os.startsWith("Windows")){
+            FileOutputStream out = new FileOutputStream(
+                    new File("%USERPROFILE%\\Downloads"+fileName+".xlsx")); //windows format
+            workbook.write(out);
+            out.close();
+        }
+        else{
+
+            System.out.println("Your system is not compatible with this code. Try running this program with MacOS or Windows.");
+        }
+
+
     }
 
     private static void makeKickerSheet(ArrayList<Player> list, XSSFWorkbook workbook,int fantasyOption) {
@@ -968,9 +988,6 @@ public static int seasonYear=0;
             wrcell.setCellValue("Total Fantasy Points");
 
             wrcell = wrRow.createCell(countWRHeaderCell++);
-            wrcell.setCellValue("Fantasy Points Per Game");
-
-            wrcell = wrRow.createCell(countWRHeaderCell++);
             wrcell.setCellValue("Fantasy Points From Rushing Yards");
 
             wrcell = wrRow.createCell(countWRHeaderCell++);
@@ -987,6 +1004,9 @@ public static int seasonYear=0;
 
             wrcell = wrRow.createCell(countWRHeaderCell++);
             wrcell.setCellValue("Fantasy Points Lost From Turnovers");
+
+            wrcell = wrRow.createCell(countWRHeaderCell++);
+            wrcell.setCellValue("Fantasy Points Per Game");
 
             wrcell = wrRow.createCell(countWRHeaderCell++);
             wrcell.setCellValue("Fantasy Receiving Yard Points Per Game");
@@ -1065,9 +1085,6 @@ public static int seasonYear=0;
                 wrcell.setCellValue(p.getTotalFantasyPoints());
 
                 wrcell = wrRow.createCell(cellid++);
-                wrcell.setCellValue(p.getFantasyPointsPerGame());
-
-                wrcell = wrRow.createCell(cellid++);
                 wrcell.setCellValue(p.getRushingYardPointsFantasy());
 
                 wrcell = wrRow.createCell(cellid++);
@@ -1084,6 +1101,9 @@ public static int seasonYear=0;
 
                 wrcell = wrRow.createCell(cellid++);
                 wrcell.setCellValue(p.getTotalTurnoverPointsLostFantasy());
+
+                wrcell = wrRow.createCell(cellid++);
+                wrcell.setCellValue(p.getFantasyPointsPerGame());
 
                 wrcell = wrRow.createCell(cellid++);
                 wrcell.setCellValue(p.getFantasyRecYardPointsPerGame());
