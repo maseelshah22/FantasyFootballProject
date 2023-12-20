@@ -26,9 +26,9 @@ There are 3 key classes that represent the core functionality of the program:
   1.  Make sure you have java installed
   2. Download and open this repository on your computer
   3. Open your terminal and navigate to this project folder
-  4. Next build the `jar` file by typing the following command in y⌨our terminal: `./gradlew build`
+  4. Next build the `jar` file by typing the following command in your terminal: `./gradlew build`
      - Note that if you are using a Mac and get an error, try running `chmod +x gradlew` before step 3
-  5. The `jar` file is now in the `build/libs` folder in your project folder. You can now move the program to any location on your computer
+  5. The `jar` file is now in the `build/libs` directory in your project folder. You can now move the program to any location on your computer
 
 ### Running the program 👨‍💻
 1. Open your terminal and navigate to the folder where the `jar` file is located.
