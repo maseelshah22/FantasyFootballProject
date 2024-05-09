@@ -36,6 +36,13 @@ There are 3 key classes that represent the core functionality of the program:
    - `java -jar FantasyDB.jar`
 3. Enjoy your data analysis!
 
+<div align=center>
+<img width="500" alt="Screenshot 2024-05-08 at 11 56 53 PM" src="https://github.com/maseelshah22/FantasyFootballProject/assets/98069253/c80c9027-111b-4786-99ec-d29dd4b49c49">
+<img width="500" alt="Screenshot 2024-05-08 at 11 57 46 PM" src="https://github.com/maseelshah22/FantasyFootballProject/assets/98069253/fc670eeb-7ad0-45ba-8320-4d935d5adfda">
+</div>
+
+
+
 ## Licensing:
 General Public License - This is a copyleft license, which mandates that any derivative work based on the original work be published with the same copyleft license. The GPL specifically enforces that any project/derivative work that uses a GPL-licensed work must publish the entire source code of the derivative project. If our program is used in your team's development process, please be sure to cite our project properly.
 
