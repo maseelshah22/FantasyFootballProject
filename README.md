@@ -1,6 +1,6 @@
 # Football Data Scraper 🏈
 
-## Author ✍️
+## Developer ✍️
 * Maseel Shah
 
 ## Overview 📊
