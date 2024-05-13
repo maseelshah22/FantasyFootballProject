@@ -9,8 +9,8 @@ Welcome to the Football Data Scraper Repository! This initiative was created to 
 * Then, all the data is exported to an Excel sheet, conveniently saved in the user's downloads folder for in-depth analysis
 * This data can be a valuable resource for users seeking to make informed decisions when selecting players for their fantasy football teams for the upcoming season!
 * Works for both Mac and Windows operating systems
-* *Important Note*: Current season's data is not available until *after* the New Year
-  - Example: 2023-24 season data is not available until January 1st, 2024
+
+ * *Key Note*: I won our league the first season after implementing this!
 
 ## Design 🎨
 This project is a command line interface program written in Java using object oriented programming principles. 
@@ -18,6 +18,8 @@ There are 3 key classes that represent the core functionality of the program:
 * `UserInterface` : This class is responsible for initializing the program and User Interface after being called on by the `main` class
 * `ScrapeStats` : Responsible for parsing the online data source, calculating stats, and writing to and exporting the Excel file
 * `Player` : Object class integral for managing data storage for each player
+* *Important Note*: Current season's data is not available until *after* the New Year
+  - Example: 2023-24 season data is not available until January 1st, 2024
 
 ## Your Turn! 🙋‍♂️
 * Take the opportunity to use this program to get an edge on your friends this upcoming Fantasy Football Season!
