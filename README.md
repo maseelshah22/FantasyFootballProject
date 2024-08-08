@@ -10,7 +10,7 @@ Welcome to the Football Data Scraper Repository! This initiative was created to 
 * This data can be a valuable resource for users seeking to make informed decisions when selecting players for their fantasy football teams for the upcoming season!
 * Works for both Mac and Windows operating systems
 
- * *Key Note*: I won our league the first season after implementing this!
+ * **Key Note: *I won* the fantasy league championship the first season after implementing this!**
 
 ## Design 🎨
 This project is a command line interface program written in Java using object oriented programming principles. 
