@@ -15,20 +15,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.time.*;
 
-//import org.apache.poi.ss.usermodel.*;
-
 import java.io.IOException;
 
 public class ScrapeStats {
-
     public static double fantasyReceptionConstant = 1;
-    public static double fantasyScrimmageYardsConstant= .1;
-    public static double fantasyPassYardsConstant=.04;
-    public static double fantasyPassTDConstant=4;
-    public static double fantasyRushTDConstant=6;
-    public static double fantasyTurnoverConstant=-2;
+    public static double fantasyScrimmageYardsConstant = .1;
+    public static double fantasyPassYardsConstant = .04;
+    public static double fantasyPassTDConstant = 4;
+    public static double fantasyRushTDConstant = 6;
+    public static double fantasyTurnoverConstant = -2;
     //TODO: Add points lost per game
-public static int seasonYear=0;
+    public static int seasonYear = 0;
+
     public static Elements getSiteBody(String url) throws IOException {
 
         String urlQBStats = url;
@@ -48,9 +46,9 @@ public static int seasonYear=0;
             String readQBStats = e.select("td.center").text();
             Double[] qbStats = extractQBData(readQBStats);
 
-            int index=0;
+            int index = 0;
 
-            Player temp=new Player(playerName);
+            Player temp = new Player(playerName);
             temp.setPosition("QB");
             temp.setCompletions(qbStats[index++]);
             temp.setPassAttempts(qbStats[index++]);
@@ -66,77 +64,72 @@ public static int seasonYear=0;
             temp.setFumblesLost(qbStats[index++]);
             temp.setGamesPlayed(qbStats[index++]);
 
-            //double tdINTRatio= temp.getTouchdownPasses()/temp.getInterceptions();
-          //  System.out.println(tdINTRatio);
-
             //fantasy starts here
 
-            double passYardFantasyPoints = fantasyPassYardsConstant* temp.getPassingYards();
+            double passYardFantasyPoints = fantasyPassYardsConstant * temp.getPassingYards();
             temp.setPassingYardPointsFantasy(passYardFantasyPoints);
 
-            double rushYardFantasyPoints= fantasyScrimmageYardsConstant* temp.getRushYards();
+            double rushYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRushYards();
             temp.setRushingYardPointsFantasy(rushYardFantasyPoints);
 
-            double passTouchdownsFantasy=  fantasyPassTDConstant*temp.getTouchdownPasses();
+            double passTouchdownsFantasy = fantasyPassTDConstant * temp.getTouchdownPasses();
             temp.setPassingTouchdownPointsFantasy(passTouchdownsFantasy);
 
-            double rushTouchdownFantasy= fantasyRushTDConstant*temp.getRushingTouchdowns();
+            double rushTouchdownFantasy = fantasyRushTDConstant * temp.getRushingTouchdowns();
             temp.setRushTDPointFantasy(rushTouchdownFantasy);
 
-            double pointsLostDueToINT= fantasyTurnoverConstant*temp.getInterceptions();
+            double pointsLostDueToINT = fantasyTurnoverConstant * temp.getInterceptions();
             temp.setPointsLostFromINTSFantasy(pointsLostDueToINT);
 
-            double pointsLostDueToFumble= fantasyTurnoverConstant*temp.getFumblesLost();
+            double pointsLostDueToFumble = fantasyTurnoverConstant * temp.getFumblesLost();
             temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
 
-            double turnoverFantasy= pointsLostDueToFumble+pointsLostDueToINT;
-            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
+            double turnoverFantasy = pointsLostDueToFumble + pointsLostDueToINT;
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy * -1);
 
-            double totFantasyPoints= passYardFantasyPoints+rushYardFantasyPoints+passTouchdownsFantasy+rushTouchdownFantasy
-                                    +turnoverFantasy;
+            double totFantasyPoints = passYardFantasyPoints + rushYardFantasyPoints + passTouchdownsFantasy + rushTouchdownFantasy
+                    + turnoverFantasy;
             temp.setTotalFantasyPoints(totFantasyPoints);
 
-            double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
+            double fantasyPointsPerGame = temp.getTotalFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
-            double fantasyPassPointsPerGame= temp.getPassingYardPointsFantasy()/temp.getGamesPlayed();
+            double fantasyPassPointsPerGame = temp.getPassingYardPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyPassYardPointsPerGame(fantasyPassPointsPerGame);
 
-            double fantasyPassTDpointsPG= temp.getPassingTouchdownPointsFantasy()/temp.getGamesPlayed();
+            double fantasyPassTDpointsPG = temp.getPassingTouchdownPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyPassTDPointsPerGame(fantasyPassTDpointsPG);
 
-            double fantasyRunYardPointsPG=temp.getRushingYardPointsFantasy()/temp.getGamesPlayed();
+            double fantasyRunYardPointsPG = temp.getRushingYardPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyRushYardPointsPerGame(fantasyRunYardPointsPG);
 
-            double fantasyRunTdPG= temp.getRushTDPointFantasy()/temp.getGamesPlayed();
+            double fantasyRunTdPG = temp.getRushTDPointFantasy() / temp.getGamesPlayed();
             temp.setFantasyRushTDPointsPerGame(fantasyRunTdPG);
 
-            double fantasyTurnoverPG= temp.getTotalTurnoverPointsLostFantasy()/temp.getGamesPlayed();
+            double fantasyTurnoverPG = temp.getTotalTurnoverPointsLostFantasy() / temp.getGamesPlayed();
             temp.setFantasyTurnoverPointsPerGame(fantasyTurnoverPG);
 
-            double passYardsPerGame= temp.getPassingYards()/temp.getGamesPlayed();
+            double passYardsPerGame = temp.getPassingYards() / temp.getGamesPlayed();
             temp.setPassYardsPerGame(passYardsPerGame);
 
-            double passingTDperGame= temp.getTouchdownPasses()/temp.getGamesPlayed();
+            double passingTDperGame = temp.getTouchdownPasses() / temp.getGamesPlayed();
             temp.setTdPassPerGame(passingTDperGame);
 
-            double rushYardPerGame= temp.getRushYards()/temp.getGamesPlayed();
+            double rushYardPerGame = temp.getRushYards() / temp.getGamesPlayed();
             temp.setRushYardPerGame(rushYardPerGame);
 
-            double rushTDPerGame= temp.getRushingTouchdowns()/temp.getGamesPlayed();
+            double rushTDPerGame = temp.getRushingTouchdowns() / temp.getGamesPlayed();
             temp.setRushTDperGame(rushTDPerGame);
 
-            double intPerGame= temp.getInterceptions()/temp.getGamesPlayed();
+            double intPerGame = temp.getInterceptions() / temp.getGamesPlayed();
             temp.setIntPerGame(intPerGame);
 
             qbList.add(temp);
 
         }
 
-
         return qbList;
     }
-
 
     public static Double[] extractQBData(String dataLine) {
 
@@ -150,13 +143,7 @@ public static int seasonYear=0;
                 newNum = tempNum.substring(0, tempNum.indexOf(',')) + tempNum.substring(tempNum.indexOf(',') + 1);
             }
             cleanData[i] = Double.parseDouble(newNum);
-            //System.out.print(cleanData[i]+" ");
         }
-
-       // cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
-
-       //System.out.println("games played "+ cleanData[cleanData.length-1] );
-
 
         return cleanData;
     }
@@ -171,10 +158,9 @@ public static int seasonYear=0;
             String readRBStats = e.select("td.center").text();
             Double[] rbStats = extractRunningBackData(readRBStats);
 
-            int index =0;
-            Player temp=new Player(playerName);
+            int index = 0;
+            Player temp = new Player(playerName);
 
-            //rbList.add(new Player(playerName));
             temp.setPosition("RB");
 
             temp.setRushAttempts(rbStats[index++]);
@@ -192,70 +178,66 @@ public static int seasonYear=0;
             temp.setGamesPlayed(rbStats[index++]);
 
             //fantasy
-            double rushYardFantasyPoints= fantasyScrimmageYardsConstant* temp.getRushYards();
+            double rushYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRushYards();
             temp.setRushingYardPointsFantasy(rushYardFantasyPoints);
 
-            double rushTouchdownFantasy= fantasyRushTDConstant*temp.getRushingTouchdowns();
+            double rushTouchdownFantasy = fantasyRushTDConstant * temp.getRushingTouchdowns();
             temp.setRushTDPointFantasy(rushTouchdownFantasy);
 
-            double pointsLostDueToFumble= fantasyTurnoverConstant*temp.getFumblesLost();
+            double pointsLostDueToFumble = fantasyTurnoverConstant * temp.getFumblesLost();
             temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
 
-            double recYardFantasyPoints = fantasyScrimmageYardsConstant*temp.getRecYards();
+            double recYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRecYards();
             temp.setReceivingYardsPointsFantasy(recYardFantasyPoints);
 
-            double receptionFantasyPoints= temp.getReceptions();
+            double receptionFantasyPoints = temp.getReceptions();
             temp.setReceptionPointsFantasy(receptionFantasyPoints);
 
-            double receivingTDFantasyPoints= fantasyRushTDConstant* temp.getRecTouchdowns();
+            double receivingTDFantasyPoints = fantasyRushTDConstant * temp.getRecTouchdowns();
             temp.setReceivingTDFantasyPoints(receivingTDFantasyPoints);
 
-            double turnoverFantasy= pointsLostDueToFumble;
-            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
+            double turnoverFantasy = pointsLostDueToFumble;
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy * -1);
 
-            double totFantasyPoints= rushYardFantasyPoints+rushTouchdownFantasy+
-                    recYardFantasyPoints+receptionFantasyPoints+receivingTDFantasyPoints+
+            double totFantasyPoints = rushYardFantasyPoints + rushTouchdownFantasy +
+                    recYardFantasyPoints + receptionFantasyPoints + receivingTDFantasyPoints +
                     +turnoverFantasy;
             temp.setTotalFantasyPoints(totFantasyPoints);
 
-            double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
+            double fantasyPointsPerGame = temp.getTotalFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
-            double rushYardPerGame= temp.getRushYards()/temp.getGamesPlayed();
+            double rushYardPerGame = temp.getRushYards() / temp.getGamesPlayed();
             temp.setRushYardPerGame(rushYardPerGame);
 
-            double rushTDPerGame= temp.getRushingTouchdowns()/temp.getGamesPlayed();
+            double rushTDPerGame = temp.getRushingTouchdowns() / temp.getGamesPlayed();
             temp.setRushTDperGame(rushTDPerGame);
 
-            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            double receptionsPerGame = temp.getReceptions() / temp.getGamesPlayed();
             temp.setReceptionsPerGame(receptionsPerGame);
 
-            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            double recYardPerGame = temp.getRecYards() / temp.getGamesPlayed();
             temp.setReceivingYardsPerGame(recYardPerGame);
 
-            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            double recTDperGame = temp.getRecTouchdowns() / temp.getGamesPlayed();
             temp.setReceivingTDPerGame(recTDperGame);
 
-            double fantasyRunYardPointsPG=temp.getRushingYardPointsFantasy()/temp.getGamesPlayed();
+            double fantasyRunYardPointsPG = temp.getRushingYardPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyRushYardPointsPerGame(fantasyRunYardPointsPG);
 
-            double fantasyRunTdPG= temp.getRushTDPointFantasy()/temp.getGamesPlayed();
+            double fantasyRunTdPG = temp.getRushTDPointFantasy() / temp.getGamesPlayed();
             temp.setFantasyRushTDPointsPerGame(fantasyRunTdPG);
 
-            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            double fantasyRecYardppg = temp.getReceivingYardsPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
 
-            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            double fantasyRecTDppg = temp.getReceivingTDFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyRecTdppg(fantasyRecTDppg);
 
             rbList.add(temp);
-
-
         }
 
         return rbList;
-
-
     }
 
 
@@ -274,7 +256,7 @@ public static int seasonYear=0;
             //System.out.print(cleanData[i]+" ");
         }
 
-       // cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
+        // cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
 
         //  System.out.println("");
 
@@ -293,7 +275,7 @@ public static int seasonYear=0;
             Player temp = new Player(playerName);
             temp.setPosition("WR");
 
-            int index=0;
+            int index = 0;
 
             temp.setReceptions(wrStats[index++]);
             temp.setTargets(wrStats[index++]);
@@ -309,48 +291,48 @@ public static int seasonYear=0;
             temp.setGamesPlayed(wrStats[index++]);
 
             //fantasy
-            double rushYardFantasyPoints= fantasyScrimmageYardsConstant* temp.getRushYards();
+            double rushYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRushYards();
             temp.setRushingYardPointsFantasy(rushYardFantasyPoints);
 
-            double rushTouchdownFantasy= fantasyRushTDConstant*temp.getRushingTouchdowns();
+            double rushTouchdownFantasy = fantasyRushTDConstant * temp.getRushingTouchdowns();
             temp.setRushTDPointFantasy(rushTouchdownFantasy);
 
-            double pointsLostDueToFumble= fantasyTurnoverConstant*temp.getFumblesLost();
+            double pointsLostDueToFumble = fantasyTurnoverConstant * temp.getFumblesLost();
             temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
 
-            double recYardFantasyPoints = fantasyScrimmageYardsConstant*temp.getRecYards();
+            double recYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRecYards();
             temp.setReceivingYardsPointsFantasy(recYardFantasyPoints);
 
-            double receptionFantasyPoints= temp.getReceptions();
+            double receptionFantasyPoints = temp.getReceptions();
             temp.setReceptionPointsFantasy(receptionFantasyPoints);
 
-            double receivingTDFantasyPoints= fantasyRushTDConstant* temp.getRecTouchdowns();
+            double receivingTDFantasyPoints = fantasyRushTDConstant * temp.getRecTouchdowns();
             temp.setReceivingTDFantasyPoints(receivingTDFantasyPoints);
 
-            double turnoverFantasy= pointsLostDueToFumble;
-            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
+            double turnoverFantasy = pointsLostDueToFumble;
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy * -1);
 
-            double totFantasyPoints= rushYardFantasyPoints+rushTouchdownFantasy+
-                    recYardFantasyPoints+receptionFantasyPoints+receivingTDFantasyPoints+
+            double totFantasyPoints = rushYardFantasyPoints + rushTouchdownFantasy +
+                    recYardFantasyPoints + receptionFantasyPoints + receivingTDFantasyPoints +
                     +turnoverFantasy;
             temp.setTotalFantasyPoints(totFantasyPoints);
 
-            double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
+            double fantasyPointsPerGame = temp.getTotalFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
-            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            double receptionsPerGame = temp.getReceptions() / temp.getGamesPlayed();
             temp.setReceptionsPerGame(receptionsPerGame);
 
-            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            double recYardPerGame = temp.getRecYards() / temp.getGamesPlayed();
             temp.setReceivingYardsPerGame(recYardPerGame);
 
-            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            double recTDperGame = temp.getRecTouchdowns() / temp.getGamesPlayed();
             temp.setReceivingTDPerGame(recTDperGame);
 
-            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            double fantasyRecYardppg = temp.getReceivingYardsPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
 
-            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            double fantasyRecTDppg = temp.getReceivingTDFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyRecTdppg(fantasyRecTDppg);
 
             wrList.add(temp);
@@ -391,7 +373,7 @@ public static int seasonYear=0;
             Player temp = new Player(playerName);
             temp.setPosition("TE");
 
-            int index=0;
+            int index = 0;
 
             temp.setReceptions(teStats[index++]);
             temp.setTargets(teStats[index++]);
@@ -407,48 +389,48 @@ public static int seasonYear=0;
             temp.setGamesPlayed(teStats[index++]);
 
             //fantasy
-            double rushYardFantasyPoints= fantasyScrimmageYardsConstant* temp.getRushYards();
+            double rushYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRushYards();
             temp.setRushingYardPointsFantasy(rushYardFantasyPoints);
 
-            double rushTouchdownFantasy= fantasyRushTDConstant*temp.getRushingTouchdowns();
+            double rushTouchdownFantasy = fantasyRushTDConstant * temp.getRushingTouchdowns();
             temp.setRushTDPointFantasy(rushTouchdownFantasy);
 
-            double pointsLostDueToFumble= fantasyTurnoverConstant*temp.getFumblesLost();
+            double pointsLostDueToFumble = fantasyTurnoverConstant * temp.getFumblesLost();
             temp.setPointsLostFromFumblesFantasy(pointsLostDueToFumble);
 
-            double recYardFantasyPoints = fantasyScrimmageYardsConstant*temp.getRecYards();
+            double recYardFantasyPoints = fantasyScrimmageYardsConstant * temp.getRecYards();
             temp.setReceivingYardsPointsFantasy(recYardFantasyPoints);
 
-            double receptionFantasyPoints= temp.getReceptions();
+            double receptionFantasyPoints = temp.getReceptions();
             temp.setReceptionPointsFantasy(receptionFantasyPoints);
 
-            double receivingTDFantasyPoints= fantasyRushTDConstant* temp.getRecTouchdowns();
+            double receivingTDFantasyPoints = fantasyRushTDConstant * temp.getRecTouchdowns();
             temp.setReceivingTDFantasyPoints(receivingTDFantasyPoints);
 
-            double turnoverFantasy= pointsLostDueToFumble;
-            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy*-1);
+            double turnoverFantasy = pointsLostDueToFumble;
+            temp.setTotalTurnoverPointsLostFantasy(turnoverFantasy * -1);
 
-            double totFantasyPoints= rushYardFantasyPoints+rushTouchdownFantasy+
-                    recYardFantasyPoints+receptionFantasyPoints+receivingTDFantasyPoints+
+            double totFantasyPoints = rushYardFantasyPoints + rushTouchdownFantasy +
+                    recYardFantasyPoints + receptionFantasyPoints + receivingTDFantasyPoints +
                     +turnoverFantasy;
             temp.setTotalFantasyPoints(totFantasyPoints);
 
-            double fantasyPointsPerGame= temp.getTotalFantasyPoints()/temp.getGamesPlayed();
+            double fantasyPointsPerGame = temp.getTotalFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyPointsPerGame(fantasyPointsPerGame);
 
-            double receptionsPerGame= temp.getReceptions()/temp.getGamesPlayed();
+            double receptionsPerGame = temp.getReceptions() / temp.getGamesPlayed();
             temp.setReceptionsPerGame(receptionsPerGame);
 
-            double recYardPerGame= temp.getRecYards()/temp.getGamesPlayed();
+            double recYardPerGame = temp.getRecYards() / temp.getGamesPlayed();
             temp.setReceivingYardsPerGame(recYardPerGame);
 
-            double recTDperGame= temp.getRecTouchdowns()/temp.getGamesPlayed();
+            double recTDperGame = temp.getRecTouchdowns() / temp.getGamesPlayed();
             temp.setReceivingTDPerGame(recTDperGame);
 
-            double fantasyRecYardppg= temp.getReceivingYardsPointsFantasy()/temp.getGamesPlayed();
+            double fantasyRecYardppg = temp.getReceivingYardsPointsFantasy() / temp.getGamesPlayed();
             temp.setFantasyRecYardPointsPerGame(fantasyRecYardppg);
 
-            double fantasyRecTDppg=temp.getReceivingTDFantasyPoints()/temp.getGamesPlayed();
+            double fantasyRecTDppg = temp.getReceivingTDFantasyPoints() / temp.getGamesPlayed();
             temp.setFantasyRecTdppg(fantasyRecTDppg);
 
             teList.add(temp);
@@ -471,7 +453,7 @@ public static int seasonYear=0;
             Player temp = new Player(playerName);
             temp.setPosition("K");
 
-            int index=0;
+            int index = 0;
 
             temp.setFieldGoalsMade(kickerStats[index++]);
             temp.setFgAttempts(kickerStats[index++]);
@@ -488,17 +470,17 @@ public static int seasonYear=0;
 
             //fantasy
 
-            double basicFGPoints= (temp.getUnder20Kicks()+temp.getUnder30Kicks()+temp.getUnder40Kicks())*3;
+            double basicFGPoints = (temp.getUnder20Kicks() + temp.getUnder30Kicks() + temp.getUnder40Kicks()) * 3;
             temp.setShortFGFantasyPoints(basicFGPoints);
-            double fg4xpoints= temp.getUnder50Kicks()*4;
+            double fg4xpoints = temp.getUnder50Kicks() * 4;
             temp.setFantasy40yardFgPoints(fg4xpoints);
-            double fg5xpoints=temp.getOver50Kicks()*5;
+            double fg5xpoints = temp.getOver50Kicks() * 5;
             temp.setFantasy50yardFgPoints(fg5xpoints);
-            double extraPointFantasyPoints= temp.getExtraPointsMade();
+            double extraPointFantasyPoints = temp.getExtraPointsMade();
             temp.setExtraPointFantasy(extraPointFantasyPoints);
-            double missedFgFantasy= temp.getFgAttempts()-temp.getFieldGoalsMade();
+            double missedFgFantasy = temp.getFgAttempts() - temp.getFieldGoalsMade();
             temp.setMissedFgFantasyPoints(missedFgFantasy);
-            double totalFantasyKickPoints=basicFGPoints+fg4xpoints+fg5xpoints+extraPointFantasyPoints-missedFgFantasy;
+            double totalFantasyKickPoints = basicFGPoints + fg4xpoints + fg5xpoints + extraPointFantasyPoints - missedFgFantasy;
             temp.setTotalFantasyPoints(totalFantasyKickPoints);
 
             kickerList.add(temp);
@@ -522,7 +504,7 @@ public static int seasonYear=0;
             cleanData[i] = Double.parseDouble(newNum);
         }
 
-        cleanData[cleanData.length-1]= Double.parseDouble(dataSep[dataSep.length-4]);
+        cleanData[cleanData.length - 1] = Double.parseDouble(dataSep[dataSep.length - 4]);
 
         return cleanData;
     }
@@ -534,8 +516,6 @@ public static int seasonYear=0;
         url = "https://www.fantasypros.com/nfl/stats/" + position + ".php?year=" + seasonYear;
 
         return url;
-
-
     }
 
     public void runProgram() throws IOException {
@@ -549,17 +529,16 @@ public static int seasonYear=0;
         ArrayList<Player> teList;
         ArrayList<Player> kList;
 
-
         Scanner s = new Scanner(System.in);
         System.out.println("For which season do you want player data? \n      " +
                 "*Must be AFTER 2001");
 
         seasonYear = s.nextInt();
 
-        Year y= Year.now();
-        int currentActualYear=y.getValue();
+        Year y = Year.now();
+        int currentActualYear = y.getValue();
 
-        while(seasonYear<2002 || seasonYear>=currentActualYear){
+        while (seasonYear < 2002 || seasonYear >= currentActualYear) {
 
             System.out.println("Invalid Year Was Entered. Please Try Again");
             System.out.println("For which season do you want player data? \n      " +
@@ -568,7 +547,6 @@ public static int seasonYear=0;
             seasonYear = s.nextInt();
 
         }
-
 
         System.out.println("For which position do you want player data?");
         System.out.println("Type QB, RB, WR, TE, K, or ALL");
@@ -588,14 +566,13 @@ public static int seasonYear=0;
 
         }
 
-
         System.out.println("Would you like PPR Fantasy Football Data to be included?");
         System.out.println("Enter 1 For YES");
         System.out.println("Enter 0 For NO");
 
         String fantasyDataOptionString = s.next();
 
-        while (!fantasyDataOptionString.equals("1")&& !fantasyDataOptionString.equals("0")){
+        while (!fantasyDataOptionString.equals("1") && !fantasyDataOptionString.equals("0")) {
 
             System.out.println("Invalid Option Selected. Please Try Again.");
             System.out.println("Would you like PPR Fantasy Football Data to be included?");
@@ -608,10 +585,6 @@ public static int seasonYear=0;
         int fantasyDataOption = Integer.parseInt(fantasyDataOptionString);
 
 
-        //url = urlGetter(seasonYear,position);
-        //Elements b= getSiteBody(url);//("https://www.fantasypros.com/nfl/stats/qb.php");
-        // Elements b= getSiteBody("https://www.fantasypros.com/nfl/stats/k.php");
-
         switch (position) {
 
             case "qb":
@@ -620,7 +593,7 @@ public static int seasonYear=0;
                 b = getSiteBody(url);
                 qbList = createQBList(b); //pass fantasy option?
                 option = 1;
-                ExportExcelSheet(option, qbList,fantasyDataOption); //pass fantasy option?
+                ExportExcelSheet(option, qbList, fantasyDataOption); //pass fantasy option?
                 System.out.println("DONE");
                 break;
             case "rb":
@@ -629,7 +602,7 @@ public static int seasonYear=0;
                 b = getSiteBody(url);
                 rbList = createRunningBackList(b);
                 option = 2;
-                ExportExcelSheet(option, rbList,fantasyDataOption);
+                ExportExcelSheet(option, rbList, fantasyDataOption);
                 System.out.println("DONE");
                 break;
             case "wr":
@@ -638,7 +611,7 @@ public static int seasonYear=0;
                 b = getSiteBody(url);
                 wrList = createWideReceiverList(b);
                 option = 3;
-                ExportExcelSheet(option, wrList,fantasyDataOption);
+                ExportExcelSheet(option, wrList, fantasyDataOption);
                 System.out.println("DONE");
                 break;
             case "te":
@@ -647,7 +620,7 @@ public static int seasonYear=0;
                 b = getSiteBody(url);
                 teList = createTightEndList(b);
                 option = 4;
-                ExportExcelSheet(option, teList,fantasyDataOption);
+                ExportExcelSheet(option, teList, fantasyDataOption);
                 System.out.println("DONE");
                 break;
 
@@ -657,7 +630,7 @@ public static int seasonYear=0;
                 b = getSiteBody(url);
                 kList = createKickerList(b);
                 option = 5;
-                ExportExcelSheet(option, kList,fantasyDataOption);
+                ExportExcelSheet(option, kList, fantasyDataOption);
                 System.out.println("DONE");
                 break;
             case "all":
@@ -694,7 +667,7 @@ public static int seasonYear=0;
 
                 option = 6;
 
-                ExportAllSheets(qbList,rbList,wrList,teList,kList,fantasyDataOption); //pass fantasy option?
+                ExportAllSheets(qbList, rbList, wrList, teList, kList, fantasyDataOption); //pass fantasy option?
 
                 break;
         }
@@ -703,78 +676,58 @@ public static int seasonYear=0;
     public static void ExportExcelSheet(int option, ArrayList<Player> list, int fantasyOption) throws IOException {
         // workbook object
         XSSFWorkbook workbook = new XSSFWorkbook();
-        String fileName="";
+        String fileName = "";
 
         if (option == 1) {
-            makeQBSheet(list, workbook,fantasyOption); //pass fantasy option?
-            fileName="QB_Data_"+ seasonYear+"_NFL"+"_Season";
+            makeQBSheet(list, workbook, fantasyOption); //pass fantasy option?
+            fileName = "QB_Data_" + seasonYear + "_NFL" + "_Season";
 
         } else if (option == 2) {
-            makeRBSheet(list, workbook,fantasyOption);
-            fileName="RB_Data_" + seasonYear +"_NFL" +"_Season";
+            makeRBSheet(list, workbook, fantasyOption);
+            fileName = "RB_Data_" + seasonYear + "_NFL" + "_Season";
         } else if (option == 3 || option == 4) {
 
-            makeReceiverSheet(option, list, workbook,fantasyOption);
+            makeReceiverSheet(option, list, workbook, fantasyOption);
 
-            if(option==3){
-                fileName="WR_Data_" + seasonYear+ "_NFL" +"_Season";
-            }
-            else{
-                fileName="TE_Data_" + seasonYear +"_NFL" + "_Season";
+            if (option == 3) {
+                fileName = "WR_Data_" + seasonYear + "_NFL" + "_Season";
+            } else {
+                fileName = "TE_Data_" + seasonYear + "_NFL" + "_Season";
             }
 
         } else if (option == 5) {
 
-            makeKickerSheet(list, workbook,fantasyOption);
-            fileName="K_Data_"+ seasonYear +"_NFL" +"_Season";
+            makeKickerSheet(list, workbook, fantasyOption);
+            fileName = "K_Data_" + seasonYear + "_NFL" + "_Season";
         }
 
-
-        // writing the data into the sheets...
-       // System.out.println("Would you like a custom name for your excel file or an auto-generated name?");
-       // System.out.println("Enter 1 to Enter a Custom Name");
-      //  System.out.println("Enter 2 for an auto-generated name");
-
-      //  Scanner nameOptionScanner=new Scanner(System.in);
-     //   String numOption=nameOptionScanner.next();
-
-     //   if(numOption.equals("1")) {
-          //  System.out.println("What is the name of the file you would like to create to store the data in?");
-          //  System.out.println("NOTE: If this filename already exists the data will be overridden.");
-
-          //  Scanner scanExcelLoc = new Scanner(System.in);
-
-          //  fileName = scanExcelLoc.next();
-       // }
 
         //path of where to export the file
 
-        String os= System.getProperty("os.name");
+        String os = System.getProperty("os.name");
 
-        if(os.startsWith("Mac")){
+        if (os.startsWith("Mac")) {
             //"~/Downloads/" doesn't work for some reason no idea way
-            String homeDirectory= System.getProperty("user.home");
+            String homeDirectory = System.getProperty("user.home");
 
             FileOutputStream out = new FileOutputStream(
-                    new File(homeDirectory+"/Downloads/"+fileName+".xlsx")); //mac format
+                    new File(homeDirectory + "/Downloads/" + fileName + ".xlsx")); //mac format
             workbook.write(out);
             out.close();
-        }
-        else if(os.startsWith("Windows")){
+        } else if (os.startsWith("Windows")) {
+            String homeDirectory = System.getProperty("user.home");
             FileOutputStream out = new FileOutputStream(
-                    new File("%USERPROFILE%\\Downloads"+fileName+".xlsx")); //windows format
+                    new File(homeDirectory + "\\Downloads\\" + fileName + ".xlsx")); //windows format
             workbook.write(out);
             out.close();
-        }
-        else{
-
+        } else {
             System.out.println("Your system is not compatible with this code. Try running this program with MacOS or Windows.");
         }
 
 
     }
 
-    private static void makeKickerSheet(ArrayList<Player> list, XSSFWorkbook workbook,int fantasyOption) {
+    private static void makeKickerSheet(ArrayList<Player> list, XSSFWorkbook workbook, int fantasyOption) {
         int rowid;
         XSSFSheet kickerSpreadsheet = workbook.createSheet("Kicker_Data");
 
@@ -822,7 +775,7 @@ public static int seasonYear=0;
         kCell = kRow.createCell(countKHeaderCell++);
         kCell.setCellValue("Games Played");
 
-        if(fantasyOption==1) {
+        if (fantasyOption == 1) {
             kCell = kRow.createCell(countKHeaderCell++);
             kCell.setCellValue("Total Fantasy Points");
 
@@ -845,7 +798,7 @@ public static int seasonYear=0;
 
         for (Player p : list) {
 
-            if(p.getGamesPlayed()==0){
+            if (p.getGamesPlayed() == 0) {
                 continue;
             }
 
@@ -892,7 +845,7 @@ public static int seasonYear=0;
             kCell = kRow.createCell(cellid++);
             kCell.setCellValue(p.getGamesPlayed());
 
-            if(fantasyOption==1){
+            if (fantasyOption == 1) {
 
                 kCell = kRow.createCell(cellid++);
                 kCell.setCellValue(p.getTotalFantasyPoints());
@@ -982,7 +935,7 @@ public static int seasonYear=0;
         wrcell = wrRow.createCell(countWRHeaderCell++);
         wrcell.setCellValue("Games Played");
 
-        if(fantasyOption==1){
+        if (fantasyOption == 1) {
 
             wrcell = wrRow.createCell(countWRHeaderCell++);
             wrcell.setCellValue("Total Fantasy Points");
@@ -1020,10 +973,9 @@ public static int seasonYear=0;
         }
 
 
-
         for (Player p : list) {
 
-            if(p.getGamesPlayed()==0){
+            if (p.getGamesPlayed() == 0) {
                 continue;
             }
 
@@ -1079,7 +1031,7 @@ public static int seasonYear=0;
             wrcell = wrRow.createCell(cellid++);
             wrcell.setCellValue(p.getGamesPlayed());
 
-            if(fantasyOption==1){
+            if (fantasyOption == 1) {
 
                 wrcell = wrRow.createCell(cellid++);
                 wrcell.setCellValue(p.getTotalFantasyPoints());
@@ -1195,10 +1147,9 @@ public static int seasonYear=0;
         qbcell.setCellValue("Games Played");
 
 
-
         //add if statment here for fantasy point headers
 
-        if(fantasyOption==1) {
+        if (fantasyOption == 1) {
             qbcell = qbRow.createCell(countQBHeaderCell++);
             qbcell.setCellValue("Total Fantasy Points");
 
@@ -1239,11 +1190,11 @@ public static int seasonYear=0;
 
         for (Player p : list) {
 
-            if(p.getGamesPlayed()==0){
+            if (p.getGamesPlayed() == 0) {
                 continue;
             }
 
-           // p.printQBAttributes();
+            // p.printQBAttributes();
 
             qbRow = qbSpreadsheet.createRow(rowid++);
 
@@ -1307,7 +1258,7 @@ public static int seasonYear=0;
             qbcell.setCellValue(p.getGamesPlayed());
 
             //add if statement here for adding fantasy points
-            if(fantasyOption==1) {
+            if (fantasyOption == 1) {
                 qbcell = qbRow.createCell(cellid++);
                 qbcell.setCellValue(p.getTotalFantasyPoints());
 
@@ -1357,11 +1308,8 @@ public static int seasonYear=0;
         XSSFRow rbRow = rbSpreadsheet.createRow(rowid++);
 
         Cell rbcell = rbRow.createCell(0);
-        //rbcell.setCellValue("Running Back Data");
 
         int countRBHeaderCell = 0;
-
-        // rbRow= rbSpreadsheet.createRow(rowid++);
 
         rbcell = rbRow.createCell(countRBHeaderCell++);
         rbcell.setCellValue("Name");
@@ -1420,7 +1368,7 @@ public static int seasonYear=0;
         rbcell = rbRow.createCell(countRBHeaderCell++);
         rbcell.setCellValue("Games Played");
 
-        if(fantasyOption==1){
+        if (fantasyOption == 1) {
 
             rbcell = rbRow.createCell(countRBHeaderCell++);
             rbcell.setCellValue("Total Fantasy Points");
@@ -1463,10 +1411,9 @@ public static int seasonYear=0;
 
         }
 
-
         for (Player p : list) {
 
-            if(p.getGamesPlayed()==0){
+            if (p.getGamesPlayed() == 0) {
                 continue;
             }
 
@@ -1531,7 +1478,7 @@ public static int seasonYear=0;
             rbcell = rbRow.createCell(cellid++);
             rbcell.setCellValue(p.getGamesPlayed());
 
-            if(fantasyOption==1){
+            if (fantasyOption == 1) {
 
                 rbcell = rbRow.createCell(cellid++);
                 rbcell.setCellValue(p.getTotalFantasyPoints());
@@ -1578,43 +1525,46 @@ public static int seasonYear=0;
 
     }
 
-
-
     public static void ExportAllSheets(ArrayList<Player> qbList, ArrayList<Player> rbList, ArrayList<Player> wrList,
                                        ArrayList<Player> teList, ArrayList<Player> kList, int fantasyDataOption) throws IOException {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        makeQBSheet(qbList,workbook,fantasyDataOption);
-        makeRBSheet(rbList,workbook,fantasyDataOption);
-        makeReceiverSheet(3,wrList,workbook,fantasyDataOption);
-        makeReceiverSheet(4,teList,workbook,fantasyDataOption);
-        makeKickerSheet(kList,workbook,fantasyDataOption);
+        makeQBSheet(qbList, workbook, fantasyDataOption);
+        makeRBSheet(rbList, workbook, fantasyDataOption);
+        makeReceiverSheet(3, wrList, workbook, fantasyDataOption);
+        makeReceiverSheet(4, teList, workbook, fantasyDataOption);
+        makeKickerSheet(kList, workbook, fantasyDataOption);
         workbook.setSheetName(0, "Quarterback_Data");
         workbook.setSheetName(2, "Wide_Receiver_Data");
         workbook.setSheetName(3, "Tight_End_Data");
 
 
-        //System.out.println("What is the name of the file you would like to create to store the data in?");
-        //System.out.println("NOTE: If this filename already exists the data will be overridden.");
+        String fileName = "All_Data_" + seasonYear + "_NFL" + "_Season";
 
-       // Scanner scanExcelLoc = new Scanner(System.in);
+        String os = System.getProperty("os.name");
 
-       // String fileName = scanExcelLoc.next();
+        if (os.startsWith("Mac")) {
+            //"~/Downloads/" doesn't work for some reason no idea way
+            String homeDirectory = System.getProperty("user.home");
 
-        String fileName="All_Data_"+ seasonYear +"_NFL"+"_Season";
-
-
-        FileOutputStream out = new FileOutputStream(
-                new File("/Users/maseelshah/Downloads/" + fileName + ".xlsx"));
-        //   /maseelshah/Downloads/
-
-        workbook.write(out);
-        out.close();
+            FileOutputStream out = new FileOutputStream(
+                    new File(homeDirectory + "/Downloads/" + fileName + ".xlsx")); //mac format
+            workbook.write(out);
+            out.close();
+        } else if (os.startsWith("Windows")) {
+            String homeDirectory = System.getProperty("user.home");
+            FileOutputStream out = new FileOutputStream(
+                    new File(homeDirectory + "\\Downloads\\" + fileName + ".xlsx")); //windows format
+            workbook.write(out);
+            out.close();
+        } else {
+            System.out.println("Your system is not compatible with this code. Try running this program with MacOS or Windows.");
+        }
 
     }
 
     public static void main(String[] args) throws IOException {
-      //  Year y= Year.now();
+        //  Year y= Year.now();
 
         //System.out.println(y.getValue());
 
